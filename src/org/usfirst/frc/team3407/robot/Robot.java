@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3407.robot.commands.DriveCommand;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +25,7 @@ import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
  */
 public class Robot extends TimedRobot {
 	public static final DriveSubsystem drive = new DriveSubsystem();
+	public static final UltraSonic u = new UltraSonic();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -108,14 +110,16 @@ public class Robot extends TimedRobot {
 	 * This function is called periodically during operator control.
 	 */
 	@Override
-	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-	}
-
-	/**
-	 * This function is called periodically during test mode.
-	 */
+	 public void teleopPeriodic() {
+    	System.out.println("TELOP " + u.getDistance());
+        Scheduler.getInstance().run();
+    }
+    
+    /**
+     * This function is called periodically during test mode
+     */
 	@Override
-	public void testPeriodic() {
-	}
+    public void testPeriodic() {
+    	System.out.println("TEST " + u.getDistance());
+    }
 }
