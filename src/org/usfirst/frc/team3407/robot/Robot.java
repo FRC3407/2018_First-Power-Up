@@ -7,13 +7,17 @@
 
 package org.usfirst.frc.team3407.robot;
 
+//import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team3407.robot.commands.AutoDrive;
 import org.usfirst.frc.team3407.robot.commands.DriveCommand;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team3407.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
 
 /**
@@ -24,8 +28,10 @@ import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
  * project.
  */
 public class Robot extends TimedRobot {
+	public static Pneumatics pneumatics;
 	public static final DriveSubsystem drive = new DriveSubsystem();
-	public static final UltraSonic u = new UltraSonic();
+	//public static final Compressor c = new Compressor();
+	public static final UltraSonic ultraSonic = new UltraSonic();
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -37,8 +43,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		pneumatics = new Pneumatics();
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new DriveCommand());
+		m_chooser.addDefault("Default Auto", new AutoDrive());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		System.out.println("Robot Init exec");
@@ -84,6 +91,7 @@ public class Robot extends TimedRobot {
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
+			System.out.println("autoselect");
 		}
 	}
 
@@ -111,7 +119,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	 public void teleopPeriodic() {
-    	System.out.println("TELOP " + u.getDistance());
+    	System.out.println("TELOP " + ultraSonic.getDistance());
         Scheduler.getInstance().run();
     }
     
@@ -120,6 +128,6 @@ public class Robot extends TimedRobot {
      */
 	@Override
     public void testPeriodic() {
-    	System.out.println("TEST " + u.getDistance());
+    	System.out.println("TEST " + ultraSonic.getDistance());
     }
 }

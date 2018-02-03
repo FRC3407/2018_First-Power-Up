@@ -1,13 +1,11 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc.team3407.robot;
 
+import org.usfirst.frc.team3407.robot.RobotMap;
+import org.usfirst.frc.team3407.robot.commands.ShootSolenoid;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,9 +13,10 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 	//// CREATING BUTTONS
-	public Joystick stickL = new Joystick(0);
-	public Joystick stickR = new Joystick(1);
+	public Joystick stickL = new Joystick(RobotMap.STICK_L);
+	public Joystick stickR = new Joystick(RobotMap.STICK_R);
 	// Button button = new JoystickButton(stick, buttonNumber);
+	public Button triggerR = new JoystickButton(stickR, RobotMap.SOLENOID_TRIGGER);
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
@@ -38,4 +37,7 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	public OI(){
+		triggerR.whenPressed(new ShootSolenoid());
+	}
 }

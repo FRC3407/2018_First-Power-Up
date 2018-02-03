@@ -25,7 +25,7 @@ public class DriveCommand extends Command {
 	@Override
 	protected void execute() {
 		Robot.drive.tank(-Robot.m_oi.stickL.getY(), -Robot.m_oi.stickR.getY());
-		System.out.println("Tank Exec");
+		//System.out.println("Tank Exec");
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
