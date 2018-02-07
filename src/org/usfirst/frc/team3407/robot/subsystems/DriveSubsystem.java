@@ -33,4 +33,9 @@ public class DriveSubsystem extends Subsystem {
 	public void initDefaultCommand() {
 	setDefaultCommand(new DriveCommand());
 	}
+	
+	public void stop() {
+		m_drive.tankDrive(0, 0);
+	}
+	
 }
