@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3407.robot.commands.AutoDrive;
 import org.usfirst.frc.team3407.robot.commands.DriveCommand;
+import org.usfirst.frc.team3407.robot.commands.DriveSteps;
+import org.usfirst.frc.team3407.robot.commands.TimedDrive;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team3407.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
@@ -45,7 +47,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		pneumatics = new Pneumatics();
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new AutoDrive());
+		m_chooser.addDefault("Default Auto", new DriveSteps());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		System.out.println("Robot Init exec");

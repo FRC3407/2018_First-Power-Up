@@ -7,6 +7,8 @@ import org.usfirst.frc.team3407.robot.Robot;
  *
  */
 public class AutoDrive extends Command {
+	
+	private static double SCALE = 0.1;
 
     public AutoDrive() {
         // Use requires() here to declare subsystem dependencies
@@ -21,8 +23,10 @@ public class AutoDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drive.tank(.5, .5);
-    	System.out.println("exec");
+    	double speed = (Robot.ultraSonic.getDistance() / 12.0) * SCALE;
+    	speed = Math.min(speed, 0.5);
+    	Robot.drive.tank(speed, speed);
+    	//System.out.println("exec");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,6 +40,8 @@ public class AutoDrive extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drive.stop();
+    	//
+    	
     	System.out.println("end");
     }
 
