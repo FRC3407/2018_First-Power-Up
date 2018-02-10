@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team3407.robot;
 
-//import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,6 +18,7 @@ import org.usfirst.frc.team3407.robot.commands.AutoDrive;
 import org.usfirst.frc.team3407.robot.commands.DriveCommand;
 import org.usfirst.frc.team3407.robot.commands.DriveSteps;
 import org.usfirst.frc.team3407.robot.commands.TimedDrive;
+import org.usfirst.frc.team3407.robot.subsystems.CameraServo;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team3407.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
@@ -32,9 +33,10 @@ import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
 public class Robot extends TimedRobot {
 	public static Pneumatics pneumatics;
 	public static final DriveSubsystem drive = new DriveSubsystem();
-	//public static final Compressor c = new Compressor();
+	public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
 	public static OI m_oi;
+	public static CameraServo cameraServo;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		pneumatics = new Pneumatics();
+		cameraServo = new CameraServo();
 		m_oi = new OI();
 		m_chooser.addDefault("Default Auto", new DriveSteps());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -111,6 +114,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		c.setClosedLoopControl(false);
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
