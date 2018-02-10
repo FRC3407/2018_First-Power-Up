@@ -20,6 +20,7 @@ import org.usfirst.frc.team3407.robot.commands.DriveSteps;
 import org.usfirst.frc.team3407.robot.commands.TimedDrive;
 import org.usfirst.frc.team3407.robot.subsystems.CameraServo;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team3407.robot.subsystems.Lifter;
 import org.usfirst.frc.team3407.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
 
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot {
 	public static final DriveSubsystem drive = new DriveSubsystem();
 	public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
+	public static Lifter lift = new Lifter();
 	public static OI m_oi;
 	public static CameraServo cameraServo;
 

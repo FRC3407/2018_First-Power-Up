@@ -23,6 +23,8 @@ public class RobotMap {
 	public static final int FRONT_LEFT_MOTOR = 1;
 	public static final int BACK_LEFT_MOTOR = 2;
 	public static final int CAMERA_SERVO = 8;
+	public static final int LIFTER_MOTOR = 5;
+	public static final int ARMS_MOTOR = 6;
 	 
 	//Solenoids
 	public static final int SOLENOID = 0;
@@ -35,7 +37,9 @@ public class RobotMap {
 	//Buttons
 	public static final int SOLENOID_TRIGGER = 1;//STICK_R
 	public static final int RESET_TRIGGER = 1;//STICK_CAMERA
-	
+	public static final int LIFT_TRIGGER_UP = 2;
+	public static final int LIFT_TRIGGER_DOWN = 3;
+	public static final int ARMS_TRIGGER = 4;
 	//Sensors
 	public static final int ULTRASONIC = 3;
 
