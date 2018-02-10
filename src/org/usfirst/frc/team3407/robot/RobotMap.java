@@ -16,18 +16,27 @@ package org.usfirst.frc.team3407.robot;
 public class RobotMap {
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
+	
+	//Actuators
 	public static final int BACK_RIGHT_MOTOR = 3;
 	public static final int FRONT_RIGHT_MOTOR = 0;
-	 
 	public static final int FRONT_LEFT_MOTOR = 1;
 	public static final int BACK_LEFT_MOTOR = 2;
+	public static final int CAMERA_SERVO = 8;
 	 
+	//Solenoids
 	public static final int SOLENOID = 0;
 	 
+	//Joysticks
 	public static final int STICK_L = 0;
 	public static final int STICK_R = 1;
-	public static final int SOLENOID_TRIGGER = 1;
+	public static final int STICK_CAMERA = 2;
 	
+	//Buttons
+	public static final int SOLENOID_TRIGGER = 1;//STICK_R
+	public static final int RESET_TRIGGER = 1;//STICK_CAMERA
+	
+	//Sensors
 	public static final int ULTRASONIC = 3;
 
 	// If you are using multiple modules, make sure to define both the port
