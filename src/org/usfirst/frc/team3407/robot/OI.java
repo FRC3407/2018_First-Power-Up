@@ -1,8 +1,7 @@
 package org.usfirst.frc.team3407.robot;
 
 import org.usfirst.frc.team3407.robot.RobotMap;
-import org.usfirst.frc.team3407.robot.commands.HoldServo;
-import org.usfirst.frc.team3407.robot.commands.ShootSolenoid;
+import org.usfirst.frc.team3407.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -20,6 +19,10 @@ public class OI {
 	// Button button = new JoystickButton(stick, buttonNumber);
 	public Button triggerR = new JoystickButton(stickR, RobotMap.SOLENOID_TRIGGER);
 	public Button triggerCam = new JoystickButton(stickCam, RobotMap.RESET_TRIGGER);
+	
+	public Button triggerLiftUp = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_UP);
+	public Button triggerLiftDown = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_DOWN);
+	public Button triggerArms = new JoystickButton(stickR, RobotMap.ARMS_TRIGGER);
 
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
@@ -43,8 +46,10 @@ public class OI {
 	public OI(){
 		triggerR.whenPressed(new ShootSolenoid());
 		triggerCam.whenPressed(new HoldServo());
+		triggerLiftUp.whenActive(new RaiseLift());
+		triggerLiftDown.whenActive(new LowerLift());
 	}
-	
+
 	public boolean getTriggerCam() {
 		return triggerCam.get();
 	}
