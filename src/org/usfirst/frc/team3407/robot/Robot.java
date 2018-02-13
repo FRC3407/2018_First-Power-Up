@@ -17,12 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3407.robot.commands.AutoDrive;
 import org.usfirst.frc.team3407.robot.commands.DriveCommand;
 import org.usfirst.frc.team3407.robot.commands.DriveSteps;
-import org.usfirst.frc.team3407.robot.commands.TimedDrive;
-import org.usfirst.frc.team3407.robot.subsystems.CameraServo;
-import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team3407.robot.subsystems.Lifter;
-import org.usfirst.frc.team3407.robot.subsystems.Pneumatics;
-import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
+import org.usfirst.frc.team3407.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,6 +32,7 @@ public class Robot extends TimedRobot {
 	public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
 	public static Lifter lift = new Lifter();
+	public static Arms arms = new Arms();
 	public static OI m_oi;
 	public static CameraServo cameraServo;
 

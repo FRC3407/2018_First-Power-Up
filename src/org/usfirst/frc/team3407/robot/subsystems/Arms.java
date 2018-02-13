@@ -10,7 +10,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Arms extends Subsystem {
 	public static Victor arms = new Victor(RobotMap.ARMS_MOTOR);
-	public static boolean open;
+
+	public void open() {
+		arms.set(.8);
+	}
+	public void close() {
+		arms.set(0);
+	}
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
