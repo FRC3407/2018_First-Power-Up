@@ -48,6 +48,8 @@ public class OI {
 		triggerCam.whenPressed(new HoldServo());
 		triggerLiftUp.whenActive(new RaiseLift());
 		triggerLiftDown.whenActive(new LowerLift());
+		triggerArms.whenActive(new OpenArms());
+		triggerArms.whenReleased(new CloseArms());
 	}
 
 	public boolean getTriggerCam() {

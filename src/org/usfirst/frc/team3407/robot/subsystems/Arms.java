@@ -12,7 +12,7 @@ public class Arms extends Subsystem {
 	public static Victor arms = new Victor(RobotMap.ARMS_MOTOR);
 
 	public void open() {
-		arms.set(.8);
+		arms.set(.75);
 	}
 	public void close() {
 		arms.set(0);
