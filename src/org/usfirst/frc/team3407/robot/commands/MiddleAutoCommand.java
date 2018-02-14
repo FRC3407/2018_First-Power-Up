@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MiddleAutoCommand extends Command {
+public class MiddleAutoCommand extends AutoCommandAbstract {
 
     public MiddleAutoCommand() {
         // Use requires() here to declare subsystem dependencies

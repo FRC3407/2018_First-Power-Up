@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public abstract class AutoCommandAbstract extends Command {
-
+	boolean isLeft;
     public AutoCommandAbstract() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

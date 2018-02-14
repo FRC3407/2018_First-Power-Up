@@ -1,12 +1,13 @@
 package org.usfirst.frc.team3407.robot.commands;
 
+import org.usfirst.frc.team3407.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class RightAutoCommand extends Command {
-
+public class RightAutoCommand extends AutoCommandAbstract {
     public RightAutoCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -14,6 +15,7 @@ public class RightAutoCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	isLeft = Robot.weekZeroGameInfo.isSwitchLeft();
     }
 
     // Called repeatedly when this Command is scheduled to run
