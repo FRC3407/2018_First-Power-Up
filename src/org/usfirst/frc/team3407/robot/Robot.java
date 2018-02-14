@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team3407.robot;
 
+import edu.wpi.cscore.VideoCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -35,6 +37,7 @@ public class Robot extends TimedRobot {
 	public static Arms arms = new Arms();
 	public static OI m_oi;
 	public static CameraServo cameraServo;
+	private GameInfo gameInfo = new CompetitionGameInfo();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -48,10 +51,21 @@ public class Robot extends TimedRobot {
 		pneumatics = new Pneumatics();
 		cameraServo = new CameraServo();
 		m_oi = new OI();
+		
 		m_chooser.addDefault("Default Auto", new DriveSteps());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		System.out.println("Robot Init exec");
+		
+		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
+		
+		VideoCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		//HD Resolution
+		//camera.setResolution(1280, 720);
+		//SD Resolution
+		camera.setResolution(640, 480);
+		
+		System.out.println("Robot Init exec \n" + gameInfo.isSwitchLeft());
+		SmartDashboard.putBoolean("switch position", gameInfo.isSwitchLeft());
 	}
 
 	/**
@@ -104,6 +118,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
 	}
 
 	@Override
@@ -112,7 +127,10 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		
+		//turns off compressor
 		c.setClosedLoopControl(false);
+		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -123,7 +141,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	 public void teleopPeriodic() {
-    	System.out.println("TELOP " + ultraSonic.getDistance());
+		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
+    	//System.out.println("TELOP " + ultraSonic.getDistance());
         Scheduler.getInstance().run();
     }
     
@@ -132,6 +151,6 @@ public class Robot extends TimedRobot {
      */
 	@Override
     public void testPeriodic() {
-    	System.out.println("TEST " + ultraSonic.getDistance());
+    	//System.out.println("TEST " + ultraSonic.getDistance());
     }
 }
