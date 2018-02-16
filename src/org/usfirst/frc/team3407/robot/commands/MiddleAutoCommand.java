@@ -9,6 +9,7 @@ public class MiddleAutoCommand extends AutoCommandAbstract {
     public MiddleAutoCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	super();
     }
 
     @Override

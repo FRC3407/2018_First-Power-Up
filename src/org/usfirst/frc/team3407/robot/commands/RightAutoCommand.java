@@ -12,6 +12,7 @@ public class RightAutoCommand extends AutoCommandAbstract {
     public RightAutoCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	super();
     }
 
     @Override

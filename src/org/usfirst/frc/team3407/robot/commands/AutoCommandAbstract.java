@@ -13,9 +13,12 @@ public abstract class AutoCommandAbstract extends Command {
     public AutoCommandAbstract() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.drive);
+    	requires(Robot.lift);
+    	requires(Robot.arms);
     }
 
-    // Called just before this Command runs the 3first time
+    // Called just before this Command runs the first time
     protected void initialize() {
     	isLeft = Robot.weekZeroGameInfo.isSwitchLeft();
     }

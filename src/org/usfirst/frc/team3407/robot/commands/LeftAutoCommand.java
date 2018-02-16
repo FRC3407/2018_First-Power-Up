@@ -12,6 +12,7 @@ public class LeftAutoCommand extends AutoCommandAbstract {
     public LeftAutoCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	super();
     }
 
     // Called just before this Command runs the first times
