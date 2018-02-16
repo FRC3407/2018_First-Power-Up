@@ -22,6 +22,7 @@ public class LeftAutoCommand extends AutoCommandAbstract {
     	Robot.drive.timedDrive(1, .7, .7);
     	Robot.lift.move(false);
     	Timer.delay(2);
+    	Robot.lift.stop();
     	Robot.arms.open();
     	Timer.delay(1);
     	Robot.arms.close();
