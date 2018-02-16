@@ -14,9 +14,9 @@ public class Lifter extends Subsystem {
     // here. Call these from Commands.
 	public void move(boolean up) {
 		if(up) {
-			lifter.set(.75);
+			lifter.set(1);
 		} else {
-			lifter.set(-.5);
+			lifter.set(-1);
 		}
 	}
 	public void stop() {

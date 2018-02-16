@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class DriveSubsystem extends Subsystem {	
@@ -33,9 +34,15 @@ public class DriveSubsystem extends Subsystem {
 	public void initDefaultCommand() {
 	setDefaultCommand(new DriveCommand());
 	}
-	
+	public void timedDrive(double timeout, double leftPow, double rightPow) {
+		m_drive.tankDrive(leftPow, rightPow);
+		Timer.delay(timeout);
+		stop(); 	 
+	}
 	public void stop() {
 		m_drive.tankDrive(0, 0);
 	}
+	
+	
 	
 }

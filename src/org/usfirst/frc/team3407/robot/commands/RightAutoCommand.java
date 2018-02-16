@@ -2,7 +2,8 @@ package org.usfirst.frc.team3407.robot.commands;
 
 import org.usfirst.frc.team3407.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
+
 
 /**
  *
@@ -13,18 +14,19 @@ public class RightAutoCommand extends AutoCommandAbstract {
         // eg. requires(chassis);
     }
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	isLeft = Robot.weekZeroGameInfo.isSwitchLeft();
+    @Override
+    protected void left() {
+    	return;
     }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
+    @Override
+    protected void right() {
+    	Timer.delay(3);
+    	Robot.drive.timedDrive(1, .7, .7);
+    	Robot.lift.move(false);
+    	Timer.delay(2);
+    	Robot.arms.open();
+    	Timer.delay(1);
+    	Robot.arms.close();
     }
 
     // Called once after isFinished returns true
