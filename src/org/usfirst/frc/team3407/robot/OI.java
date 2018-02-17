@@ -46,8 +46,9 @@ public class OI {
 	public OI(){
 		//triggerR.whenPressed(new ShootSolenoid());
 		//triggerCam.whenPressed(new HoldServo());
-		triggerLiftUp.whenActive(new RaiseLift());
-		triggerLiftDown.whenActive(new LowerLift());
+		triggerLiftUp.whileActive(new RaiseLift());		
+		triggerLiftDown.whileActive(new LowerLift());
+		
 		triggerArms.whenActive(new OpenArms());
 		triggerArms.whenReleased(new CloseArms());
 	}
