@@ -28,6 +28,7 @@ public class RightAutoCommand extends AutoCommandAbstract {
     	Robot.lift.stop();
     	Robot.arms.open();
     	Timer.delay(1);
+    	Robot.pneumatics.shoot();
     	Robot.arms.close();
     	
     }
