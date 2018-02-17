@@ -23,7 +23,7 @@ public class CameraServo extends Subsystem {
     
     public void move(double pos) {
     	camServ.set(pos);
-    	System.out.println("move: "+pos);
+    	//System.out.println("move: "+pos);
     }
     
     public void reset() {

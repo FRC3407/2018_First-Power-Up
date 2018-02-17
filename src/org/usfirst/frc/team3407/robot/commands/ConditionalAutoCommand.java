@@ -19,6 +19,6 @@ public class ConditionalAutoCommand extends ConditionalCommand {
      
     @Override
 	protected boolean condition() {
-		return Robot.weekZeroGameInfo.isSwitchLeft();
+		return Robot.gameInfo.isSwitchLeft();
 	}
 }

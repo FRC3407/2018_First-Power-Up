@@ -16,7 +16,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3407.robot.commands.DriveSteps;
+import java.util.HashMap;
+
+//import org.usfirst.frc.team3407.robot.commands.LeftAutoCommand;
+import org.usfirst.frc.team3407.robot.commands.LeftPositionAutoCommandBuilder;
+import org.usfirst.frc.team3407.robot.commands.MiddlePositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.subsystems.*;
 
 /**
@@ -27,19 +31,25 @@ import org.usfirst.frc.team3407.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static Pneumatics pneumatics;
+	public static Pneumatics pneumatics = new Pneumatics();;
 	public static final DriveSubsystem drive = new DriveSubsystem();
-	public static final Compressor c = new Compressor();
+	//public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
 	public static Lifter lift = new Lifter();
 	public static Arms arms = new Arms();
 	public static OI m_oi;
 	public static CameraServo cameraServo;
-	private GameInfo gameInfo = new CompetitionGameInfo();
-	public static WeekZeroGameInfo weekZeroGameInfo = new WeekZeroGameInfo();
+	public static GameInfo gameInfo = new CompetitionGameInfo(); //WeekZeroGameInfo();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	
+	private static final String SD_AUTO_CHOOSER_KEY = "Auto mode";
+	private static final String SD_AUTO_CHOOSER_SELECTED_KEY = SD_AUTO_CHOOSER_KEY + "/selected";
+	private static final String SD_AUTO_INPUT_KEY = "Auto Selector";
+
+	private static HashMap<String,Command> AUTONOMOUS_COMMANDS = new HashMap<>();
+	private static String defaultCommandSelect = "";
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -51,9 +61,9 @@ public class Robot extends TimedRobot {
 		cameraServo = new CameraServo();
 		m_oi = new OI();
 		
-		m_chooser.addDefault("Default Auto", new DriveSteps());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		addAutoCommand("Left", new LeftPositionAutoCommandBuilder().build(), true);
+		addAutoCommand("Middle", new MiddlePositionAutoCommandBuilder().build(), false);
+		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
 		
 		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
 		
@@ -95,19 +105,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		m_autonomousCommand = getSelectedAutoCommand();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
+			System.out.println("autocomamnd: " + m_autonomousCommand.getName() + " type=" + m_autonomousCommand.getClass().getName());
 			m_autonomousCommand.start();
-			System.out.println("autoselect");
 		}
 	}
 
@@ -128,7 +131,7 @@ public class Robot extends TimedRobot {
 		// this line or comment it out.
 		
 		//turns off compressor
-		c.setClosedLoopControl(false);
+		//c.setClosedLoopControl(false);
 		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
@@ -152,4 +155,41 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {
     	//System.out.println("TEST " + ultraSonic.getDistance());
     }
+	
+	private void addAutoCommand(String select, Command command, boolean defaultCommand) {
+		if (defaultCommand) {
+			m_chooser.addDefault(select, command);
+			defaultCommandSelect = select;
+		} else {
+			m_chooser.addObject(select, command);	
+		}
+		AUTONOMOUS_COMMANDS.put(select, command);
+	}
+	
+	public Command getSelectedAutoCommand() {
+		Command command = null;
+		
+		String chooserSelection = SmartDashboard.getString(SD_AUTO_CHOOSER_SELECTED_KEY, "");
+		System.out.println("ChooserSelection= " + chooserSelection);
+		if ((chooserSelection == null) || chooserSelection.isEmpty() || !AUTONOMOUS_COMMANDS.containsKey(chooserSelection)) {
+			// Try using input field 
+			String inputSelection = SmartDashboard.getString(SD_AUTO_INPUT_KEY, "XYZ");
+			//inputSelection = SmartDashboard.getString("DB/String 0", "ABC");
+			System.out.println("InputSelection= " + inputSelection);
+			command = AUTONOMOUS_COMMANDS.get(inputSelection);			
+		}
+		else {
+			System.out.println("Command from chooser");
+			command = m_chooser.getSelected();
+		}
+	
+		if (command == null) {
+			System.out.println("Using default command: " + defaultCommandSelect);
+			command = AUTONOMOUS_COMMANDS.get(defaultCommandSelect);
+		}
+		
+		return command;
+	}
+
+
 }

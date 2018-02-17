@@ -25,8 +25,8 @@ public class AutoDrive extends Command {
     protected void execute() {
     	double speed = (Robot.ultraSonic.getDistance() / 12.0) * SCALE;
     	speed = Math.min(speed, 0.5);
+    	//System.out.println("AutoDrive setting speed: " + speed + " at distance " + Robot.ultraSonic.getDistance());
     	Robot.drive.tank(speed, speed);
-    	//System.out.println("exec");
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,8 +40,6 @@ public class AutoDrive extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.drive.stop();
-    	//
-    	
     	System.out.println("end");
     }
 

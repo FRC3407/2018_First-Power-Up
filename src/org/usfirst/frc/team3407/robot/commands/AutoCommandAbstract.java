@@ -20,7 +20,7 @@ public abstract class AutoCommandAbstract extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	isLeft = Robot.weekZeroGameInfo.isSwitchLeft();
+    	isLeft = Robot.gameInfo.isSwitchLeft();
     }
     protected abstract void left();
     protected abstract void right();
