@@ -10,6 +10,8 @@ public class WeekZeroGameInfo extends GameInfo {
 		offSeasonNetworkTable.startClient("10.0.100.5");
 		String gameData = offSeasonNetworkTable.getTable("OffseasonFMSInfo").getEntry("GameData").getString("defaultValue");
 		
+		System.out.println("Week ZERO game data: " + gameData);
+		
 		return gameData;
 	}
 

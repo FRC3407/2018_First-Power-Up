@@ -39,7 +39,8 @@ public class Robot extends TimedRobot {
 	public static Arms arms = new Arms();
 	public static OI m_oi;
 	public static CameraServo cameraServo;
-	public static GameInfo gameInfo = new CompetitionGameInfo(); //WeekZeroGameInfo();
+	//public static GameInfo gameInfo = new CompetitionGameInfo();
+	public static GameInfo gameInfo = new WeekZeroGameInfo();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -73,7 +74,7 @@ public class Robot extends TimedRobot {
 		//SD Resolution
 		camera.setResolution(640, 480);
 		
-		System.out.println("Robot Init exec \n" + gameInfo.isSwitchLeft());
+		System.out.println("Robot Init exec: Switch left=" + gameInfo.isSwitchLeft());
 		SmartDashboard.putBoolean("switch position", gameInfo.isSwitchLeft());
 	}
 

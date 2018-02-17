@@ -16,9 +16,9 @@ public class MiddlePositionAutoCommandBuilder extends AbstractAutoCommandBuilder
 		
 		command.addSequential(new PrintCommand("Drive Maneuver"));
 		if (switchLeft) {
-			command.addSequential(new TimedDrive(1, 0.7, 0.7));  // Replace with AutoDrive??
+			command.addSequential(new TimedDrive(0.5, 0.5, 0.5));  // Replace with AutoDrive??
 		} else {
-			command.addSequential(new TimedDrive(1, 0.7, 0.7));  // Replace with AutoDrive??			
+			command.addSequential(new TimedDrive(0.5, 0.5, 0.5));  // Replace with AutoDrive??			
 		}
 		
 		//command.addSequential(new PrintCommand("Lowering arm"));

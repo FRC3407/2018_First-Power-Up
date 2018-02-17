@@ -11,16 +11,16 @@ public class LeftPositionAutoCommandBuilder extends AbstractAutoCommandBuilder {
 	protected Command build(boolean switchLeft) {
 		CommandGroup command = new CommandGroup();
 		
-		command.addSequential(new PrintCommand("Waiting 3 seconds"));
-		command.addSequential(new WaitCommand(3));
+		command.addSequential(new PrintCommand("Waiting 2 seconds"));
+		command.addSequential(new WaitCommand(2));
 		
 		command.addSequential(new PrintCommand("Drive Maneuver"));
 		if (switchLeft) {
-			//command.addSequential(new TimedDrive(1, 0.7, 0.7));  // Replace with AutoDrive??
-			command.addSequential(new AutoDrive());
+			command.addSequential(new TimedDrive(1, 0.5, 0.5));  // Replace with AutoDrive??
+			//command.addSequential(new AutoDrive());
 		} else {
-			//command.addSequential(new TimedDrive(1, 0.7, 0.7));  // Replace with Drive Steps??			
-			command.addSequential(new DriveSteps());
+			command.addSequential(new TimedDrive(1, 0.5, 0.5));  // Replace with Drive Steps??			
+			//command.addSequential(new DriveSteps());
 		}
 		
 		command.addSequential(new PrintCommand("Lowering arm"));
