@@ -19,10 +19,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.HashMap;
 
-//import org.usfirst.frc.team3407.robot.commands.LeftAutoCommand;
 import org.usfirst.frc.team3407.robot.commands.LeftPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.MiddlePositionAutoCommandBuilder;
-import org.usfirst.frc.team3407.robot.subsystems.*;
+import org.usfirst.frc.team3407.robot.commands.RightPositionAutoCommandBuilder;
+import org.usfirst.frc.team3407.robot.subsystems.Arms;
+import org.usfirst.frc.team3407.robot.subsystems.CameraServo;
+import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team3407.robot.subsystems.Lifter;
+import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -63,6 +67,7 @@ public class Robot extends TimedRobot {
 		
 		addAutoCommand("Left", new LeftPositionAutoCommandBuilder().build(), true);
 		addAutoCommand("Middle", new MiddlePositionAutoCommandBuilder().build(), false);
+		addAutoCommand("Right", new RightPositionAutoCommandBuilder().build(), false);
 		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
 		
 		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());

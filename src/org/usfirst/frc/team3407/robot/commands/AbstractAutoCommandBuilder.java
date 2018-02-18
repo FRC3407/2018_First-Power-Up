@@ -4,7 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public abstract class AbstractAutoCommandBuilder {
 	
-	public enum Direction { LEFT, RIGHT };
+	public enum Direction { 
+		LEFT, RIGHT;
+		public Direction getOpposite() { return (this == Direction.LEFT) ? Direction.RIGHT : Direction.LEFT; };
+	};
 
 	public Command build() {
 		Command leftCommand = build(Direction.LEFT);

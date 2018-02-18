@@ -41,4 +41,76 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	protected void addOpenArms(CommandGroup command) {
 		command.addSequential(new TimedOpenCommand(3));
 	}
+	
+	// This is a near switch maneuver
+	//
+	//       |
+	//       /
+	//      /
+	//      |
+	//      |
+	//      |
+	//      |
+	//
+	protected void addNearDriveManeuver(Direction direction, CommandGroup command) {
+		
+		final double TURN_TIME = 1.5;
+		final double TURN_SPEED = 0.7;
+		
+		command.addSequential(new TimedDrive(5.0, 0.6, 0.6));    
+		command.addSequential(new WaitCommand(0.5));
+		
+		command.addSequential(new TimedDrive(TURN_TIME, 
+				getLeftSpeedForTurn(TURN_SPEED, direction), 
+				getRightSpeedForTurn(TURN_SPEED, direction)));  
+		
+		command.addSequential(new TimedDrive(2.0, 0.6, 0.6));    
+		command.addSequential(new WaitCommand(0.5));
+		
+		command.addSequential(new TimedDrive(TURN_TIME, 
+				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
+				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite())));  
+		
+		command.addSequential(new TimedDrive(2.0, 0.6, 0.6));    
+	}
+	
+	// This is a far switch maneuver
+	//
+	//                              |
+	//                              |
+	//                              |
+	//                              |
+	//      ________________________|
+	//      |
+	//      |
+	//
+	protected void addFarDriveManeuver(Direction direction, CommandGroup command) {
+		
+		final double TURN_TIME = 3.0;
+		final double TURN_SPEED = 0.7;
+		
+		command.addSequential(new TimedDrive(1.0, 0.6, 0.6));    
+		command.addSequential(new WaitCommand(0.5));
+		
+		command.addSequential(new TimedDrive(TURN_TIME, 
+				getLeftSpeedForTurn(TURN_SPEED, direction), 
+				getRightSpeedForTurn(TURN_SPEED, direction)));  
+		
+		command.addSequential(new TimedDrive(5.0, 0.8, 0.8));    
+		command.addSequential(new WaitCommand(0.5));
+		
+		command.addSequential(new TimedDrive(TURN_TIME, 
+				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
+				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite())));  
+		
+		command.addSequential(new TimedDrive(5.0, 0.6, 0.6));    
+	}
+
+	private double getLeftSpeedForTurn(double speed, Direction direction) {
+		return (direction == Direction.LEFT) ? -1.0 * speed : speed;
+	}
+	
+	private double getRightSpeedForTurn(double speed, Direction direction) {
+		return (direction == Direction.RIGHT) ? -1.0 * speed : speed;
+	}
 }

@@ -6,6 +6,6 @@ public class MiddlePositionAutoCommandBuilder extends AbstractAutoDropAtSwitchCo
 
 	@Override
 	protected void addDriveManeuver(Direction direction, CommandGroup command) {
-		command.addSequential(new TimedDrive(0.5, 0.5, 0.5));  // Replace with AutoDrive??
+		addNearDriveManeuver(direction, command);
 	}
 }
