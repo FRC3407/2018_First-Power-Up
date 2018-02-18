@@ -15,10 +15,10 @@ public class OI {
 	//// CREATING BUTTONS
 	public Joystick stickL = new Joystick(RobotMap.STICK_L);
 	public Joystick stickR = new Joystick(RobotMap.STICK_R);
-	public Joystick stickCam = new Joystick(RobotMap.STICK_CAMERA);
-	// Button button = new JoystickButton(stick, buttonNumber);
-	public Button triggerR = new JoystickButton(stickR, RobotMap.SOLENOID_TRIGGER);
-	public Button triggerCam = new JoystickButton(stickCam, RobotMap.RESET_TRIGGER);
+	public Joystick stickCam = null; //new Joystick(RobotMap.STICK_CAMERA);
+
+	public Button triggerR = null; //new JoystickButton(stickR, RobotMap.SOLENOID_TRIGGER);
+	public Button triggerCam = null; //new JoystickButton(stickCam, RobotMap.RESET_TRIGGER);
 	
 	public Button triggerLiftUp = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_UP);
 	public Button triggerLiftDown = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_DOWN);
@@ -44,19 +44,20 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	public OI(){
-		triggerR.whenPressed(new ShootSolenoid());
-		triggerCam.whenPressed(new HoldServo());
-		triggerLiftUp.whenActive(new RaiseLift());
-		triggerLiftDown.whenActive(new LowerLift());
+		//triggerR.whenPressed(new ShootSolenoid());
+		//triggerCam.whenPressed(new HoldServo());
+		triggerLiftUp.whileActive(new RaiseLift());		
+		triggerLiftDown.whileActive(new LowerLift());
+		
 		triggerArms.whenActive(new OpenArms());
 		triggerArms.whenReleased(new CloseArms());
 	}
 
 	public boolean getTriggerCam() {
-		return triggerCam.get();
+		return (triggerCam == null) ? false : triggerCam.get();
 	}
 	
 	public double getStickCam() {
-		return stickCam.getX()+0.5;
+		return (stickCam == null) ? 0.0 : stickCam.getX()+0.5;
 	}
 }

@@ -7,12 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CloseArms extends Command {
+public class StopLift extends Command {
 
-    public CloseArms() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.arms);
+    public StopLift() {
+    	requires(Robot.lift);
     }
 
     // Called just before this Command runs the first time
@@ -21,14 +19,13 @@ public class CloseArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		System.out.println("CloseArms Executing");
-    	Robot.arms.close();
+		System.out.println("StopLift Executed");
+    	Robot.lift.stop();
     }
-
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

@@ -23,6 +23,7 @@ public class OpenArms extends Command {
     
     //Could possibly not work? Thread.sleep is funky.
     protected void execute() {
+		System.out.println("OpenArms Executing");
     	Robot.arms.open();
     }
 

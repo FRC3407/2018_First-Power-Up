@@ -2,17 +2,16 @@ package org.usfirst.frc.team3407.robot.commands;
 
 import org.usfirst.frc.team3407.robot.Robot;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  *
  */
-public class CloseArms extends Command {
+public class TimedOpenCommand extends TimedCommand {
 
-    public CloseArms() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.arms);
+    public TimedOpenCommand(double timeout) {
+        super(timeout);
+    	requires(Robot.arms);	
     }
 
     // Called just before this Command runs the first time
@@ -21,22 +20,17 @@ public class CloseArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-		System.out.println("CloseArms Executing");
-    	Robot.arms.close();
+    	Robot.arms.open();
     }
 
-
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return true;
-    }
-
-    // Called once after isFinished returns true
+    // Called once after timeout
     protected void end() {
+    	Robot.arms.close();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+       	Robot.arms.close();
     }
 }
