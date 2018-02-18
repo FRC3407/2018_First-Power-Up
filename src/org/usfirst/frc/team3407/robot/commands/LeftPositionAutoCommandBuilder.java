@@ -1,41 +1,19 @@
 package org.usfirst.frc.team3407.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.PrintCommand;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class LeftPositionAutoCommandBuilder extends AbstractAutoCommandBuilder {
+public class LeftPositionAutoCommandBuilder extends AbstractAutoDropAtSwitchCommandBuilder {
 	
 	@Override
-	protected Command build(boolean switchLeft) {
-		CommandGroup command = new CommandGroup();
-		
-		//command.addSequential(new PrintCommand("Waiting 2 seconds"));
-		//command.addSequential(new WaitCommand(2));
-		
-		command.addSequential(new PrintCommand("Drive Maneuver"));
-		if (switchLeft) {
-			command.addSequential(new TimedDrive(3, 0.5, 0.5));  // Replace with AutoDrive??
+	protected void addDriveManeuver(Direction direction, CommandGroup command) {
+		if (direction == Direction.LEFT) {
+			command.addSequential(new TimedDrive(4, 0.6, 0.6));  // Replace with AutoDrive??
 			command.addSequential(new WaitCommand(1.5));
-			command.addSequential(new TimedDrive(1.25, 0.5, -0.5));  // Replace with AutoDrive??
-			//command.addSequential(new AutoDrive());
+			command.addSequential(new TimedDrive(2.5, 0.7, -0.7));  // Replace with AutoDrive??
+			command.addSequential(new AutoDrive());
 		} else {
-			command.addSequential(new TimedDrive(3, 0.5, 0.5));  // Replace with Drive Steps??
-			command.addSequential(new WaitCommand(1.5));
-			command.addSequential(new TimedDrive(1.25, 0.5, -0.5));
-			//command.addSequential(new DriveSteps());
-		}
-		
-		command.addSequential(new PrintCommand("Lowering arm"));
-		command.addSequential(new TimedLiftCommand(3, TimedLiftCommand.Direction.LOWER));
-		
-		command.addSequential(new PrintCommand("Open Sesame"));		
-		command.addSequential(new TimedOpenCommand(3));
-
-		command.addSequential(new PrintCommand("Autonomous Command is DONE"));		
-
-		return command;
+			// Add commands for driving to right side
+		}		
 	}
-
 }

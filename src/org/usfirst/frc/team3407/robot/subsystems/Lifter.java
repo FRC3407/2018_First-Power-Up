@@ -14,10 +14,14 @@ public class Lifter extends Subsystem {
     // here. Call these from Commands.
 	public void move(boolean up) {
 		if(up) {
-			System.out.println("Lifter speed set to 1");
+			if (lifter.get() != 1.0) {
+				System.out.println("Lifter speed set to 1");
+			}
 			lifter.set(1.0);
 		} else {
-			System.out.println("Lifter speed set to -1");
+			if (lifter.get() != -1.0) {
+				System.out.println("Lifter speed set to -1");
+			}
 			lifter.set(-1.0);
 		}
 	}

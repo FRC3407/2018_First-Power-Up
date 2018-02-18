@@ -39,8 +39,7 @@ public class Robot extends TimedRobot {
 	public static Arms arms = new Arms();
 	public static OI m_oi;
 	public static CameraServo cameraServo;
-	//public static GameInfo gameInfo = new CompetitionGameInfo();
-	public static GameInfo gameInfo = new WeekZeroGameInfo();
+	public static GameInfo gameInfo = new CompetitionGameInfo();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
