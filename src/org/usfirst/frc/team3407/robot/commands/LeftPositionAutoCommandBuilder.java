@@ -11,7 +11,7 @@ public class LeftPositionAutoCommandBuilder extends AbstractAutoDropAtSwitchComm
 			command.addSequential(new TimedDrive(4, 0.6, 0.6));  // Replace with AutoDrive??
 			command.addSequential(new WaitCommand(1.5));
 			command.addSequential(new TimedDrive(2.5, 0.7, -0.7));  // Replace with AutoDrive??
-			command.addSequential(new AutoDrive());
+			//command.addSequential(new AutoDrive());
 		} else {
 			// Add commands for driving to right side
 		}		

@@ -8,6 +8,7 @@
 package org.usfirst.frc.team3407.robot;
 
 import edu.wpi.cscore.VideoCamera;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -31,7 +32,7 @@ import org.usfirst.frc.team3407.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static Pneumatics pneumatics = new Pneumatics();;
+	//public static Pneumatics pneumatics = new Pneumatics();;
 	public static final DriveSubsystem drive = new DriveSubsystem();
 	//public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
@@ -57,7 +58,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		pneumatics = new Pneumatics();
 		cameraServo = new CameraServo();
 		m_oi = new OI();
 		
@@ -75,6 +75,11 @@ public class Robot extends TimedRobot {
 		
 		System.out.println("Robot Init exec: Switch left=" + gameInfo.isSwitchLeft());
 		SmartDashboard.putBoolean("switch position", gameInfo.isSwitchLeft());
+	}
+
+	@Override
+	public void robotPeriodic() {
+		// Do nothing since scheduler is called for autonomous and teleop
 	}
 
 	/**
@@ -148,12 +153,35 @@ public class Robot extends TimedRobot {
         Scheduler.getInstance().run();
     }
     
-    /**
+    @Override
+	public void testInit() {
+		//NetworkTableInstance table = NetworkTableInstance.getDefault();
+    	clearAutoChooserSelection();
+    }
+
+	/**
      * This function is called periodically during test mode
      */
 	@Override
     public void testPeriodic() {
     	//System.out.println("TEST " + ultraSonic.getDistance());
+		SmartDashboard.putString("MY_VALUE", "test");
+		NetworkTableInstance defTable = NetworkTableInstance.getDefault();
+		//NetworkTableInstance table = NetworkTableInstance.create();
+		//table.startDSClient();
+		edu.wpi.first.networktables.NetworkTable table = defTable.getTable("SmartDashboard");
+		//edu.wpi.first.networktables.NetworkTable smartDashboard = table.getTable("DB");
+		//edu.wpi.first.wpilibj.networktables.NetworkTable table = edu.wpi.first.wpilibj.networktables.NetworkTable.getTable("DB");
+		System.out.println("SM=" + table + " connect=" + defTable.isConnected());
+		if (table != null) {
+			edu.wpi.first.networktables.NetworkTableEntry entry = table.getEntry("Auto Selector");
+			//edu.wpi.first.networktables.NetworkTableEntry entry = smartDashboard.getEntry("String 1");
+			//String  value = table.getString("String 1", "xcv");
+			//System.out.println("ENTRY: " + entry);
+			String value = entry.getString("jkl");
+			//System.out.println("ENTRY VALUE: " + autoSelect + entry.isValid() + entry.getType());
+			System.out.println("ENTRY VALUE VALUE: " + value);
+		}
     }
 	
 	private void addAutoCommand(String select, Command command, boolean defaultCommand) {
@@ -164,8 +192,16 @@ public class Robot extends TimedRobot {
 			m_chooser.addObject(select, command);	
 		}
 		AUTONOMOUS_COMMANDS.put(select, command);
+		
+		// Add just the first letter capitalized as shortcuts.  This could overwrite an existing entry if two names
+		// start with same letter
+		AUTONOMOUS_COMMANDS.put(select.substring(0, 1).toUpperCase(), command);
 	}
 	
+	public void clearAutoChooserSelection() {
+		SmartDashboard.putString(SD_AUTO_CHOOSER_SELECTED_KEY, "");
+	}
+		
 	public Command getSelectedAutoCommand() {
 		Command command = null;
 		
@@ -174,7 +210,6 @@ public class Robot extends TimedRobot {
 		if ((chooserSelection == null) || chooserSelection.isEmpty() || !AUTONOMOUS_COMMANDS.containsKey(chooserSelection)) {
 			// Try using input field 
 			String inputSelection = SmartDashboard.getString(SD_AUTO_INPUT_KEY, "XYZ");
-			//inputSelection = SmartDashboard.getString("DB/String 0", "ABC");
 			System.out.println("InputSelection= " + inputSelection);
 			command = AUTONOMOUS_COMMANDS.get(inputSelection);			
 		}
@@ -190,6 +225,4 @@ public class Robot extends TimedRobot {
 		
 		return command;
 	}
-
-
 }

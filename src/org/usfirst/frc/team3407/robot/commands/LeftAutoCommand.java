@@ -25,7 +25,7 @@ public class LeftAutoCommand extends AutoCommandAbstract {
     	Robot.lift.stop();
     	Robot.arms.open();
     	Timer.delay(1);
-    	Robot.pneumatics.shoot();
+    	//Robot.pneumatics.shoot();
     	Robot.arms.close();
     }
     @Override

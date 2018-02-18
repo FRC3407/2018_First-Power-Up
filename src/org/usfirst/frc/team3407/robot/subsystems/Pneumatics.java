@@ -13,7 +13,7 @@ public class Pneumatics extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	private Solenoid sol = null; //new Solenoid(RobotMap.SOLENOID);
+	private Solenoid sol = new Solenoid(RobotMap.SOLENOID);
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

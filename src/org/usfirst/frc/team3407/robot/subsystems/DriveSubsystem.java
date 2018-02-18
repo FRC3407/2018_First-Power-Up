@@ -35,7 +35,8 @@ public class DriveSubsystem extends Subsystem {
 		m_drive.tankDrive(leftPow*SCALE , rightPow*SCALE);
 	}
 	public void initDefaultCommand() {
-	setDefaultCommand(new DriveCommand());
+		m_drive.setSafetyEnabled(false);
+		setDefaultCommand(new DriveCommand());
 	}
 	public void timedDrive(double timeout, double leftPow, double rightPow) {
 		m_drive.tankDrive(leftPow , rightPow);
