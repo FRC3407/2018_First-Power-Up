@@ -17,13 +17,11 @@ public class TimedDrive extends TimedCommand {
         this.left = left;
         this.right = right;
         requires(Robot.drive);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//System.out.println("Timed init");
+    	System.out.println("TimedDrive left=" + left + " right=" + right);
     }
 
     // Called repeatedly when this Command is scheduled to run

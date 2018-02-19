@@ -31,22 +31,20 @@ public class DriveSubsystem extends Subsystem {
 	
 	DifferentialDrive m_drive = new DifferentialDrive(m_left, m_right);
 	
-	public void tank(double leftPow, double rightPow) {
-		m_drive.tankDrive(leftPow*SCALE , rightPow*SCALE);
-	}
 	public void initDefaultCommand() {
 		m_drive.setSafetyEnabled(false);
 		setDefaultCommand(new DriveCommand());
 	}
-	public void timedDrive(double timeout, double leftPow, double rightPow) {
-		m_drive.tankDrive(leftPow , rightPow);
-		Timer.delay(timeout);
-		stop(); 	 
+	
+	public void tank(double leftPow, double rightPow) {
+		m_drive.tankDrive(leftPow, rightPow);
 	}
+
+	public void tankSlow(double leftPow, double rightPow) {
+		m_drive.tankDrive(leftPow*SCALE, rightPow*SCALE);
+	}
+
 	public void stop() {
 		m_drive.tankDrive(0, 0);
 	}
-	
-	
-	
 }

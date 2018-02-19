@@ -24,7 +24,7 @@ public class DriveCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.drive.tank(-Robot.m_oi.stickL.getY(), -Robot.m_oi.stickR.getY());
+		Robot.drive.tankSlow(-Robot.m_oi.stickL.getY(), -Robot.m_oi.stickR.getY());
 		//System.out.println("Tank Exec");
 	}
 
