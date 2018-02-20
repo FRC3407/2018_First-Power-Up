@@ -7,9 +7,9 @@ public class RightPositionAutoCommandBuilder extends AbstractAutoDropAtSwitchCom
 	@Override
 	protected void addDriveManeuver(Direction direction, CommandGroup command) {
 		if (direction == Direction.RIGHT) {
-			addNearDriveManeuver(Direction.RIGHT, command);
+			addNearDriveManeuver(Direction.LEFT, command);
 		} else {
-			addFarDriveManeuver(Direction.RIGHT, command);
+			addFarDriveManeuver(Direction.LEFT, command);
 		}		
 	}
 

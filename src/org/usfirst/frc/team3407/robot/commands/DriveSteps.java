@@ -18,7 +18,7 @@ public class DriveSteps extends CommandGroup {
     	addSequential(new TimedDrive(1,0.5,-0.5));
     	addSequential(new TimedDrive(1,0.5,0.5));
     	addSequential(new TimedDrive(1,-0.5,0.5));
-    	addSequential(new AutoDrive());
+    	addSequential(new AutoDrive(12));
 
     	requires(Robot.drive);
     	requires(Robot.ultraSonic);
