@@ -10,6 +10,7 @@ public class AutoDrive extends Command {
 	
 	private static final double SCALE = 0.1;
 	private double lim;
+	private double counter = 0;
     public AutoDrive(double lim) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -29,6 +30,7 @@ public class AutoDrive extends Command {
     	speed = Math.max(speed, 0.3);
     	//System.out.println("AutoDrive setting speed: " + speed + " at distance " + Robot.ultraSonic.getDistance());
     	Robot.drive.tank(speed, speed);
+    	counter++;
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,6 +40,9 @@ public class AutoDrive extends Command {
     		return true;
     	}
     	else {
+    		if(counter>300) {
+    			return true;
+    		}
     		return false;
     	}
     }
