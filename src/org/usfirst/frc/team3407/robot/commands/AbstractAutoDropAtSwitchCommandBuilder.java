@@ -45,7 +45,7 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	protected abstract void addDriveManeuver(Direction direction, CommandGroup command);
 	
 	protected void addLowerArms(CommandGroup command) {
-		command.addSequential(new TimedLiftCommand(3, TimedLiftCommand.Direction.RAISE));		
+		command.addSequential(new TimedLiftCommand(3, TimedLiftCommand.Direction.LOWER));		
 	}
 
 	protected void addOpenArms(CommandGroup command) {
