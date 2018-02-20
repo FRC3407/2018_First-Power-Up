@@ -22,6 +22,7 @@ import java.util.HashMap;
 import org.usfirst.frc.team3407.robot.commands.LeftPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.MiddlePositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.RightPositionAutoCommandBuilder;
+import org.usfirst.frc.team3407.robot.commands.TimedDrive;
 import org.usfirst.frc.team3407.robot.subsystems.Arms;
 import org.usfirst.frc.team3407.robot.subsystems.CameraServo;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
@@ -65,7 +66,8 @@ public class Robot extends TimedRobot {
 		cameraServo = new CameraServo();
 		m_oi = new OI();
 		
-		addAutoCommand("Left", new LeftPositionAutoCommandBuilder().build(), true);
+		addAutoCommand("Straight", new TimedDrive(2.0,0.5,0.5), true);
+		addAutoCommand("Left", new LeftPositionAutoCommandBuilder().build(), false);
 		addAutoCommand("Middle", new MiddlePositionAutoCommandBuilder().build(), false);
 		addAutoCommand("Right", new RightPositionAutoCommandBuilder().build(), false);
 		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
