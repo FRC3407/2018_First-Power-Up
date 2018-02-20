@@ -8,8 +8,8 @@ import org.usfirst.frc.team3407.robot.Robot;
  */
 public class AutoDrive extends Command {
 	
-	private static double SCALE = 0.1;
-	private static double lim;
+	private static final double SCALE = 0.1;
+	private double lim;
     public AutoDrive(double lim) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
