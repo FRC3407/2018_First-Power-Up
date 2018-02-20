@@ -26,7 +26,7 @@ public class AutoDrive extends Command {
     protected void execute() {
     	double speed = (Robot.ultraSonic.getDistance() / 12.0) * SCALE;
     	speed = Math.min(speed, 0.5);
-    	speed = Math.max(0.3, speed);
+    	speed = Math.max(speed, 0.3);
     	//System.out.println("AutoDrive setting speed: " + speed + " at distance " + Robot.ultraSonic.getDistance());
     	Robot.drive.tank(speed, speed);
     }

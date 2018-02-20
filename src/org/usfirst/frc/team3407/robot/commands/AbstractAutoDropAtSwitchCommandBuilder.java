@@ -57,11 +57,10 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	// position.
 	//
 	//
-	//       |
+	//         |
+	//		  /
 	//       /
 	//      /
-	//      |
-	//      |
 	//      |
 	//      |
 	//
@@ -118,7 +117,7 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 				getRightSpeedForTurn(TURN_SPEED, direction)));  
 		
 		// Drive across field
-		command.addSequential(new TimedDrive(4, 0.45, 0.45));    
+		command.addSequential(new TimedDrive(4, 0.5, 0.5));    
 		command.addSequential(new WaitCommand(0.5));
 		
 		// Turn opposite of the specified direction to face the switch wall 
@@ -130,11 +129,11 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 		command.addSequential(new AutoDrive(9));    
 	}
 
-	private double getLeftSpeedForTurn(double speed, Direction direction) {
+	protected double getLeftSpeedForTurn(double speed, Direction direction) {
 		return (direction == Direction.LEFT) ? -1.0 * speed : speed;
 	}
 	
-	private double getRightSpeedForTurn(double speed, Direction direction) {
+	protected double getRightSpeedForTurn(double speed, Direction direction) {
 		return (direction == Direction.RIGHT) ? -1.0 * speed : speed;
 	}
 }

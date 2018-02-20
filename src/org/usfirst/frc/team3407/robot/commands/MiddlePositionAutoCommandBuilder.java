@@ -6,6 +6,20 @@ public class MiddlePositionAutoCommandBuilder extends AbstractAutoDropAtSwitchCo
 
 	@Override
 	protected void addDriveManeuver(Direction direction, CommandGroup command) {
-		addNearDriveManeuver(direction, command);
+		//move forward initially 
+		final double TURN_TIME = 2;
+		final double TURN_SPEED = 0.35;
+		command.addSequential(new TimedDrive(1, 0.5, 0.5));
+		
+		command.addSequential(new TimedDrive(TURN_TIME, 
+				getLeftSpeedForTurn(TURN_SPEED, direction), 
+				getRightSpeedForTurn(TURN_SPEED, direction)));
+		
+		command.addSequential(new TimedDrive(2, .5, .5));
+		
+		command.addSequential(new TimedDrive(TURN_TIME, 
+				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
+				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite())));  
+		command.addSequential(new AutoDrive(9));
 	}
 }
