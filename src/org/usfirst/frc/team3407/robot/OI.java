@@ -15,10 +15,10 @@ public class OI {
 	//// CREATING BUTTONS
 	public Joystick stickL = new Joystick(RobotMap.STICK_L);
 	public Joystick stickR = new Joystick(RobotMap.STICK_R);
-	public Joystick stickCam = null; //new Joystick(RobotMap.STICK_CAMERA);
+	public Joystick stickCam = new Joystick(RobotMap.STICK_CAMERA);
 
 	public Button triggerR = null; //new JoystickButton(stickR, RobotMap.SOLENOID_TRIGGER);
-	public Button triggerCam = null; //new JoystickButton(stickCam, RobotMap.RESET_TRIGGER);
+	public Button triggerCam = new JoystickButton(stickCam, RobotMap.RESET_TRIGGER);
 	
 	public Button triggerLiftUp = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_UP);
 	public Button triggerLiftDown = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_DOWN);

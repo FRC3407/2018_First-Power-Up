@@ -73,8 +73,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
 		
 		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
-		VideoCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
-		VideoCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+		VideoCamera camera = CameraServer.getInstance().startAutomaticCapture("fixed", 0);
+		VideoCamera camera2 = CameraServer.getInstance().startAutomaticCapture("servo", 1);
 		//HD Resolution
 		//camera.setResolution(1280, 720);
 		//SD Resolution
