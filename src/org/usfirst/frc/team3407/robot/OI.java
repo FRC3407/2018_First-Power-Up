@@ -54,10 +54,10 @@ public class OI {
 	}
 
 	public boolean getTriggerCam() {
-		return (triggerCam == null) ? false : triggerCam.get();
+		return triggerCam.get();
 	}
 	
 	public double getStickCam() {
-		return (stickCam == null) ? 0.0 : stickCam.getX()+0.5;
+		return stickCam.getX()+0.5;
 	}
 }

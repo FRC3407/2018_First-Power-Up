@@ -79,15 +79,14 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 				getRightSpeedForTurn(TURN_SPEED, direction)));  
 		
 		// Drive diagonal 
-		command.addSequential(new TimedDrive(2.0, 0.5, 0.5));    
+		command.addSequential(new TimedDrive(1.0, 0.5, 0.5));    
 		command.addSequential(new WaitCommand(0.5));
 		
 		// Turn opposite of the specified direction to face the switch wall 
 		command.addSequential(new TimedDrive(TURN_TIME, 
 				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
 				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite()))); 
-		command.addSequential(new AutoDrive(9));
-		command.addSequential(new OpenArms());
+		command.addSequential(new AutoDrive(12));
 	}
 	
 	// This is a far switch maneuver.  For example if direction is right, then the
