@@ -66,26 +66,25 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	//
 	protected void addNearDriveManeuver(Direction direction, CommandGroup command) {
 		
-		final double TURN_TIME = 1;
-		final double TURN_SPEED = 0.35;
+		final double TURN_DEGREES = 45.0;
 		
 		// Initial forward
 		command.addSequential(new TimedDrive(.5, 0.5, 0.5));    
 		command.addSequential(new WaitCommand(0.5));
 		
-		// Turn in the specified direction 
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction), 
-				getRightSpeedForTurn(TURN_SPEED, direction)));  
+		// Turn in the specified direction, left is negative 
+		double turnDegrees = (direction == Direction.LEFT) ? -TURN_DEGREES : TURN_DEGREES;
+		command.addSequential(buildInPlaceTurn(turnDegrees));
 		
 		// Drive diagonal 
 		command.addSequential(new TimedDrive(1.0, 0.5, 0.5));    
 		command.addSequential(new WaitCommand(0.5));
 		
-		// Turn opposite of the specified direction to face the switch wall 
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
-				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite()))); 
+		// Turn in the specified direction, left is now positive 
+		turnDegrees = (direction == Direction.LEFT) ? TURN_DEGREES : -TURN_DEGREES;
+		command.addSequential(buildInPlaceTurn(turnDegrees));
+		
+		// Drive to switch plate
 		command.addSequential(new AutoDrive(12));
 	}
 	
@@ -103,36 +102,25 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	//
 	protected void addFarDriveManeuver(Direction direction, CommandGroup command) {
 		
-		final double TURN_TIME = 2.0;
-		final double TURN_SPEED = 0.35;
+		final double TURN_DEGREES = 90.0;
 		
 		// Initial forward
 		command.addSequential(new TimedDrive(1.0, 0.5, 0.5));    
 		command.addSequential(new WaitCommand(0.5));
 		
-		// Turn 90 degrees in specified direction
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction), 
-				getRightSpeedForTurn(TURN_SPEED, direction)));  
+		// Turn 90 degrees in specified direction, left is negative
+		double turnDegrees = (direction == Direction.LEFT) ? -TURN_DEGREES : TURN_DEGREES;
+		command.addSequential(buildInPlaceTurn(turnDegrees));
 		
 		// Drive across field
 		command.addSequential(new TimedDrive(4, 0.5, 0.5));    
 		command.addSequential(new WaitCommand(0.5));
 		
-		// Turn opposite of the specified direction to face the switch wall 
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
-				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite())));  
+		// Turn in the specified direction, left is now positive 
+		turnDegrees = (direction == Direction.LEFT) ? TURN_DEGREES : -TURN_DEGREES;
+		command.addSequential(buildInPlaceTurn(turnDegrees));
 		
 		// Drive to wall
 		command.addSequential(new AutoDrive(9));    
-	}
-
-	protected double getLeftSpeedForTurn(double speed, Direction direction) {
-		return (direction == Direction.LEFT) ? -1.0 * speed : speed;
-	}
-	
-	protected double getRightSpeedForTurn(double speed, Direction direction) {
-		return (direction == Direction.RIGHT) ? -1.0 * speed : speed;
 	}
 }

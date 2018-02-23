@@ -6,21 +6,23 @@ public class MiddlePositionAutoCommandBuilder extends AbstractAutoDropAtSwitchCo
 
 	@Override
 	protected void addDriveManeuver(Direction direction, CommandGroup command) {
+		final double TURN_DEGREES = 90.0;
+
 		//move forward initially 
-		final double TURN_TIME = 2;
-		final double TURN_SPEED = 0.35;
 		command.addSequential(new TimedDrive(1, 0.5, 0.5));
-		//turn 90 degrees
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction), 
-				getRightSpeedForTurn(TURN_SPEED, direction)));
+
+		// Turn 90 degrees in specified direction, left is negative
+		double turnDegrees = (direction == Direction.LEFT) ? -TURN_DEGREES : TURN_DEGREES;
+		command.addSequential(buildInPlaceTurn(turnDegrees));
+		
 		//drive across the field
 		command.addSequential(new TimedDrive(2, .5, .5));
-		//turn 90 degrees back to the initial orientation
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
-				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite())));  
+		
+		// Turn in the specified direction, left is now positive 
+		turnDegrees = (direction == Direction.LEFT) ? TURN_DEGREES : -TURN_DEGREES;
+		command.addSequential(buildInPlaceTurn(turnDegrees));
+		
 		//drive to switch
-		command.addSequential(new AutoDrive(9));
+		command.addSequential(new AutoDrive(12));
 	}
 }

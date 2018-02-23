@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.team3407.robot.commands.AbstractAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.LeftPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.MiddlePositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.RightPositionAutoCommandBuilder;
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
 	public static GameInfo gameInfo = new CompetitionGameInfo();
 
 	Command m_autonomousCommand;
+	Command testCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
 	private static final String SD_AUTO_CHOOSER_KEY = "Auto mode";
@@ -163,8 +165,9 @@ public class Robot extends TimedRobot {
     
     @Override
 	public void testInit() {
-		//NetworkTableInstance table = NetworkTableInstance.getDefault();
     	clearAutoChooserSelection();
+    	testCommand = AbstractAutoCommandBuilder.buildTurnCalibration();
+    	testCommand.start();
     }
 
 	/**
@@ -172,6 +175,10 @@ public class Robot extends TimedRobot {
      */
 	@Override
     public void testPeriodic() {
+        Scheduler.getInstance().run();
+	}
+	
+	private void testNetworkTables() {
     	//System.out.println("TEST " + ultraSonic.getDistance());
 		SmartDashboard.putString("MY_VALUE", "test");
 		NetworkTableInstance defTable = NetworkTableInstance.getDefault();
