@@ -1,5 +1,7 @@
 package org.usfirst.frc.team3407.robot.commands;
 
+import org.usfirst.frc.team3407.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.PrintCommand;
@@ -34,8 +36,12 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 		command.addSequential(new PrintCommand("Lowering arm"));
 		addLowerArms(command);
 		
-		command.addSequential(new PrintCommand("Open Sesame"));		
-		addOpenArms(command);
+		if (RobotMap.hasArms()) {
+			command.addSequential(new PrintCommand("Open Sesame"));		
+			addOpenArms(command);
+		} else {
+			command.addSequential(new PrintCommand("Open Arms (woudl happen no if there were any)"));					
+		}
 
 		command.addSequential(new PrintCommand("Autonomous Command is DONE"));		
 

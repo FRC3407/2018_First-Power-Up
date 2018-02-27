@@ -46,11 +46,16 @@ public class OI {
 	public OI(){
 		//triggerR.whenPressed(new ShootSolenoid());
 		//triggerCam.whenPressed(new HoldServo());
-		triggerLiftUp.whileActive(new RaiseLift());		
-		triggerLiftDown.whileActive(new LowerLift());
 		
-		triggerArms.whenActive(new OpenArms());
-		triggerArms.whenReleased(new CloseArms());
+		if (RobotMap.hasLifter()) {
+			triggerLiftUp.whileActive(new RaiseLift());		
+			triggerLiftDown.whileActive(new LowerLift());
+		}
+		
+		if (RobotMap.hasArms()) {
+			triggerArms.whenActive(new OpenArms());
+			triggerArms.whenReleased(new CloseArms());
+		}
 	}
 
 	public boolean getTriggerCam() {

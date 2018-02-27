@@ -17,7 +17,9 @@ public abstract class AbstractAutoCommandBuilder {
 		
 		double[] turnDegreeArray = { 90.0, -90.0, 45.0, -45.0 };
 		for (double turnDegree : turnDegreeArray) {
-			command.addSequential(new PrintCommand(String.format("Calibrating turn of %s degrees", turnDegree)));
+			String test = String.format("Calibrating turn of %s degrees", turnDegree);
+			System.out.println("Building command: " + test);
+			command.addSequential(new PrintCommand(test));
 			command.addSequential(buildInPlaceTurn(turnDegree));				
 			command.addSequential(new WaitCommand(2));
 		}

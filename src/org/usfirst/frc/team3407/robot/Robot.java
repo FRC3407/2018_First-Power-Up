@@ -10,7 +10,6 @@ package org.usfirst.frc.team3407.robot;
 import edu.wpi.cscore.VideoCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
-//import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -38,12 +37,10 @@ import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
  * project.
  */
 public class Robot extends TimedRobot {
-	//public static Pneumatics pneumatics = new Pneumatics();;
 	public static final DriveSubsystem drive = new DriveSubsystem();
-	//public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
 	public static Lifter lift = new Lifter();
-	public static Arms arms = new Arms();
+	public static Arms arms;
 	public static OI m_oi;
 	public static CameraServo cameraServo;
 	public static GameInfo gameInfo = new CompetitionGameInfo();
@@ -65,23 +62,32 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		cameraServo = new CameraServo();
-		m_oi = new OI();
+		if (RobotMap.hasArms()) {
+			System.out.println("Initializing arms");
+			arms = new Arms();
+		}
 		
+		if (RobotMap.hasCameras()) {
+			System.out.println("Initializing cameras");
+			cameraServo = new CameraServo();
+			VideoCamera camera = CameraServer.getInstance().startAutomaticCapture("fixed", 0);
+			VideoCamera camera2 = CameraServer.getInstance().startAutomaticCapture("servo", 1);
+			//HD Resolution
+			//camera.setResolution(1280, 720);
+			//SD Resolution
+			camera.setResolution(640, 480);
+			camera2.setResolution(640, 480);
+		}
+		
+		// Initialize OI after all subsystems are created so that commands can be initialized
+		m_oi = new OI();
+
 		addAutoCommand("Straight", new TimedDrive(2.0,0.5,0.5), true);
 		addAutoCommand("Left", new LeftPositionAutoCommandBuilder().build(), false);
 		addAutoCommand("Middle", new MiddlePositionAutoCommandBuilder().build(), false);
 		addAutoCommand("Right", new RightPositionAutoCommandBuilder().build(), false);
+		addAutoCommand("Test", AbstractAutoCommandBuilder.buildTurnCalibration(), false);
 		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
-		
-		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
-		VideoCamera camera = CameraServer.getInstance().startAutomaticCapture("fixed", 0);
-		VideoCamera camera2 = CameraServer.getInstance().startAutomaticCapture("servo", 1);
-		//HD Resolution
-		//camera.setResolution(1280, 720);
-		//SD Resolution
-		camera.setResolution(640, 480);
-		camera2.setResolution(640, 480);
 		
 		System.out.println("Robot Init exec: Switch left=" + gameInfo.isSwitchLeft());
 		SmartDashboard.putBoolean("switch position", gameInfo.isSwitchLeft());

@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team3407.robot;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -40,11 +43,66 @@ public class RobotMap {
 	public static final int LIFT_TRIGGER_DOWN = 2;
 	public static final int LIFT_TRIGGER_UP = 3;
 	public static final int ARMS_TRIGGER = 1;
+	
 	//Sensors
 	public static final int ULTRASONIC = 3;
+	
+	private static byte[] mac;
+	
+	static {
+		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			System.out.println("Current IP address : " + ip.getHostAddress());
 
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
+			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+			mac = network.getHardwareAddress();
+
+			System.out.print("Current MAC address : ");
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < mac.length; i++) {
+				sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? "-" : ""));
+			}
+			System.out.println(sb.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Is Haugbui: " + RobotName.HAUGBUI.isMatch(mac));
+	}
+
+	public enum RobotName { 
+		LAMBDA_CHOPS(null), 
+		HAUGBUI(new int[] { 0x00, 0x80, 0x2F, 0x17, 0xC3, 0x48 });
+		
+		private int[] mac;
+		private RobotName(int[] mac) {
+			this.mac = mac;
+		}
+		
+		private boolean isMatch(byte[] mac) {
+			boolean match = true;
+			for(int i = 0;i < 6;i++) {
+				if (this.mac[i] != (((int) mac[i]) & ((int) 0xFF))) {
+					match = false;
+					break;					
+				}
+			
+			}
+			
+			return match;
+		}
+		
+	};
+	
+	public static boolean hasCameras() {
+		return !RobotName.HAUGBUI.isMatch(mac);
+	}
+
+	public static boolean hasArms() {
+		return !RobotName.HAUGBUI.isMatch(mac);
+	}
+	
+	public static boolean hasLifter() {
+		return !RobotName.HAUGBUI.isMatch(mac);
+	}	
 }
