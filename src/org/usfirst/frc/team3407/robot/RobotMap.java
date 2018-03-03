@@ -42,6 +42,7 @@ public class RobotMap {
 	public static final int ARMS_TRIGGER = 1;
 	//Sensors
 	public static final int ULTRASONIC = 3;
+	public static final int LIMIT_SWITCH = 0;
 
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

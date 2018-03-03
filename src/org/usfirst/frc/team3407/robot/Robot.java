@@ -10,6 +10,7 @@ package org.usfirst.frc.team3407.robot;
 import edu.wpi.cscore.VideoCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static CameraServo cameraServo;
 	public static GameInfo gameInfo = new CompetitionGameInfo();
+	public static DigitalInput lim;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -64,6 +66,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		cameraServo = new CameraServo();
+		lim= new DigitalInput(RobotMap.LIMIT_SWITCH);
 		m_oi = new OI();
 		
 		addAutoCommand("Straight", new TimedDrive(2.0,0.5,0.5), true);
