@@ -1,17 +1,18 @@
 package org.usfirst.frc.team3407.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import org.usfirst.frc.team3407.robot.Robot;
 import org.usfirst.frc.team3407.robot.RobotMap;
 
 /**
  *
  */
 public class Lifter extends Subsystem {
-	Counter counter = new Counter(Robot.lim);
+	public static DigitalInput lim= new DigitalInput(RobotMap.LIMIT_SWITCH);
+	Counter counter = new Counter(lim);
 	private static Victor lifter = new Victor(RobotMap.LIFTER_MOTOR);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

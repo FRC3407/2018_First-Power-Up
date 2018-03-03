@@ -47,7 +47,6 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static CameraServo cameraServo;
 	public static GameInfo gameInfo = new CompetitionGameInfo();
-	public static DigitalInput lim;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -66,7 +65,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		cameraServo = new CameraServo();
-		lim= new DigitalInput(RobotMap.LIMIT_SWITCH);
 		m_oi = new OI();
 		
 		addAutoCommand("Straight", new TimedDrive(2.0,0.5,0.5), true);
