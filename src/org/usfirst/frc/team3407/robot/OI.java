@@ -24,10 +24,6 @@ public class OI {
 	public Button triggerLiftDown = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_DOWN);
 	public Button triggerArms = new JoystickButton(stickR, RobotMap.ARMS_TRIGGER);
 	
-	public Button dSolOff = new JoystickButton(stickL, RobotMap.DOUBLE_SOL_OFF);
-	public Button dSolForward = new JoystickButton(stickL, RobotMap.DOUBLE_SOL_FORWARD);
-	public Button dSolReverse = new JoystickButton(stickL, RobotMap.DOUBLE_SOL_REVERSE);
-
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
@@ -48,7 +44,6 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	public OI(){
-		//triggerR.whenPressed(new ShootSolenoid());
 		triggerCam.whenPressed(new HoldServo());
 		triggerLiftUp.whileActive(new RaiseLift());		
 		triggerLiftDown.whileActive(new LowerLift());
