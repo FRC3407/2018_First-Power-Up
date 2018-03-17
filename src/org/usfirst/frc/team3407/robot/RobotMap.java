@@ -35,11 +35,14 @@ public class RobotMap {
 	public static final int STICK_CAMERA = 2;
 	
 	//Buttons
-	public static final int SOLENOID_TRIGGER = 1;//STICK_R
 	public static final int RESET_TRIGGER = 1;//STICK_CAMERA
 	public static final int LIFT_TRIGGER_DOWN = 2;
 	public static final int LIFT_TRIGGER_UP = 3;
 	public static final int ARMS_TRIGGER = 1;
+	public static final int DOUBLE_SOL_OFF = 1;
+	public static final int DOUBLE_SOL_FORWARD = 3;
+	public static final int DOUBLE_SOL_REVERSE = 2;
+	
 	//Sensors
 	public static final int ULTRASONIC = 3;
 

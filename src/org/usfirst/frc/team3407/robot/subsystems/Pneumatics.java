@@ -22,13 +22,15 @@ public class Pneumatics extends Subsystem {
     	
     }
     //Aaron Wuz Here
-    /*public void shoot() {
-    	sol.set(true);
-    	Timer.delay(0.1);
-    	sol.set(false);
+    public void forward() {
+    	dSol.set(DoubleSolenoid.Value.kForward);
     }
     
-    public void stop(){
-    	sol.set(false);
-    }*/
+    public void reverse() {
+    	dSol.set(DoubleSolenoid.Value.kReverse);
+    }
+    
+    public void off(){
+    	dSol.set(DoubleSolenoid.Value.kOff);
+    }
 }

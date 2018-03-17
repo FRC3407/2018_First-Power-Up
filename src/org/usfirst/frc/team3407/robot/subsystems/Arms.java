@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Arms extends Subsystem {
 	//private Victor arms = new Victor(RobotMap.ARMS_MOTOR);
-	private Solenoid solenoid = new Solenoid(RobotMap.SOLENOID);
+	private Solenoid solenoid = new Solenoid(2/*RobotMap.SOLENOID*/);
 
 	public void open() {
 		//arms.set(.75);
