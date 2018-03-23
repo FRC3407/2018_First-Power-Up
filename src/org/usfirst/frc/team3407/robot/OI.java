@@ -23,7 +23,7 @@ public class OI {
 	public Button triggerLiftUp = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_UP);
 	public Button triggerLiftDown = new JoystickButton(stickR, RobotMap.LIFT_TRIGGER_DOWN);
 	public Button triggerArms = new JoystickButton(stickR, RobotMap.ARMS_TRIGGER);
-
+	
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
@@ -44,8 +44,7 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	public OI(){
-		//triggerR.whenPressed(new ShootSolenoid());
-		//triggerCam.whenPressed(new HoldServo());
+		triggerCam.whenPressed(new HoldServo());
 		
 		if (RobotMap.hasLifter()) {
 			triggerLiftUp.whileActive(new RaiseLift());		
