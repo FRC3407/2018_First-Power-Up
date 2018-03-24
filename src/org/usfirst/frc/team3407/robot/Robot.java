@@ -227,8 +227,9 @@ public class Robot extends TimedRobot {
 			command = m_chooser.getSelected();
 		}
 	
-		if (command == null) {
+		if (command == null || !gameInfo.isValid()) {
 			System.out.println("Using default command: " + defaultCommandSelect);
+			System.out.println("Game Info Data: " + gameInfo.isValid());
 			command = AUTONOMOUS_COMMANDS.get(defaultCommandSelect);
 		}
 		

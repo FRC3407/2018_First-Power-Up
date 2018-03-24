@@ -6,4 +6,9 @@ public abstract class GameInfo {
 		
 		return getMessage() != null && getMessage().length() > 0 ?  getMessage().charAt(0) == 'L' : false;
 	}
+public boolean isValid() {
+		
+		return getMessage() != null && getMessage().length() > 0 ?  (getMessage().charAt(0) == 'L' || !(getMessage().charAt(0) == 'R')) : false;
+	}
+
 }
