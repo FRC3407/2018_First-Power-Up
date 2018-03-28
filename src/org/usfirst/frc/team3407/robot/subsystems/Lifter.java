@@ -39,7 +39,8 @@ public class Lifter extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-	public boolean isSwich() {
+	public boolean isSwitch() {
+		System.out.println(counter.get());
 		return counter.get() > 0;
 	}
 }
