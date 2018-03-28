@@ -20,6 +20,8 @@ public class Lifter extends Subsystem {
 		if(up) {
 			if (lifter.get() != 1.0) {
 				System.out.println("Lifter speed set to 1");
+				counter.reset();
+				
 			}
 			lifter.set(1.0);
 		} else {
@@ -41,7 +43,7 @@ public class Lifter extends Subsystem {
     }
 	public boolean isSwitch() {
 		System.out.println(counter.get());
-		return counter.get() > 0; //does not reset
+		return counter.get() > 0;
 	}
 }
 

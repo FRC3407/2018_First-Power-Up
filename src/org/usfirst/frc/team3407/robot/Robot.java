@@ -10,7 +10,6 @@ package org.usfirst.frc.team3407.robot;
 import edu.wpi.cscore.VideoCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -24,6 +23,7 @@ import org.usfirst.frc.team3407.robot.commands.LeftPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.MiddlePositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.RightPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.TimedDrive;
+import org.usfirst.frc.team3407.robot.commands.TestAuto;
 import org.usfirst.frc.team3407.robot.subsystems.Arms;
 import org.usfirst.frc.team3407.robot.subsystems.CameraServo;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
@@ -120,13 +120,15 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = getSelectedAutoCommand();
+		//m_autonomousCommand = getSelectedAutoCommand();
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
+		/*if (m_autonomousCommand != null) {
 			System.out.println("autocomamnd: " + m_autonomousCommand.getName() + " type=" + m_autonomousCommand.getClass().getName());
 			m_autonomousCommand.start();
-		}
+		}*/
+		m_autonomousCommand = new TestAuto();
+		
 	}
 
 	/**

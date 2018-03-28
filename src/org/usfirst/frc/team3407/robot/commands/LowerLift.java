@@ -28,14 +28,13 @@ public class LowerLift extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	// Return false so button control works
-        //if(Robot.lift.isSwitch()) {
-        	//System.out.println("Switch engaged. ending.");
-        	//return true;  	
-        //} else {
-        //	System.out.println("Switch not engaged");
+        if(Robot.lift.isSwitch()) {
+        	System.out.println("Switch engaged. ending.");
+        	return true;  	
+        } else {
+        System.out.println("Switch not engaged");
         	return false;
-        //}
+        }
     }
 
     // Called once after isFinished returns true
