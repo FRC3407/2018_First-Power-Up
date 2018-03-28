@@ -41,7 +41,7 @@ public class Lifter extends Subsystem {
     }
 	public boolean isSwitch() {
 		System.out.println(counter.get());
-		return counter.get() > 0;
+		return counter.get() > 0; //does not reset
 	}
 }
 
