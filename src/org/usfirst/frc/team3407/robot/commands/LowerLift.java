@@ -21,9 +21,9 @@ public class LowerLift extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 		System.out.println("LowerLift Executing");
-    	//if(!Robot.lift.isSwitch()) {
-    		Robot.lift.move(false);
-    	//}
+    		if(!Robot.lift.isSwitch()) {
+    			Robot.lift.moveDown();
+    		}
     }
 
     // Make this return true when this Command no longer needs to run execute()

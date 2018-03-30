@@ -20,8 +20,6 @@ public class OpenArms extends Command {
     }
     
     // Called repeatedly when this Command is scheduled to run
-    
-    //Could possibly not work? Thread.sleep is funky.
     protected void execute() {
 		System.out.println("OpenArms Executing");
     	Robot.arms.open();

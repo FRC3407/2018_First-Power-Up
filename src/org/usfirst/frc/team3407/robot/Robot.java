@@ -23,7 +23,7 @@ import org.usfirst.frc.team3407.robot.commands.LeftPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.MiddlePositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.RightPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.TimedDrive;
-import org.usfirst.frc.team3407.robot.commands.TestAuto;
+//import org.usfirst.frc.team3407.robot.commands.TestAuto;
 import org.usfirst.frc.team3407.robot.subsystems.Arms;
 import org.usfirst.frc.team3407.robot.subsystems.CameraServo;
 import org.usfirst.frc.team3407.robot.subsystems.DriveSubsystem;
@@ -68,23 +68,21 @@ public class Robot extends TimedRobot {
 		cameraServo = new CameraServo();
 		m_oi = new OI();
 		
-		addAutoCommand("Straight", new TimedDrive(2.0,0.5,0.5), true);
+		addAutoCommand("Straight", new TimedDrive(3.0,0.6,0.7), true);
 		addAutoCommand("Left", new LeftPositionAutoCommandBuilder().build(), false);
 		addAutoCommand("Middle", new MiddlePositionAutoCommandBuilder().build(), false);
 		addAutoCommand("Right", new RightPositionAutoCommandBuilder().build(), false);
 		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
 		
 		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
-		VideoCamera camera = CameraServer.getInstance().startAutomaticCapture("fixed", 0);
-		VideoCamera camera2 = CameraServer.getInstance().startAutomaticCapture("servo", 1);
+		VideoCamera camera = CameraServer.getInstance().startAutomaticCapture("fixed", RobotMap.FIXED_CAM);
+		VideoCamera camera2 = CameraServer.getInstance().startAutomaticCapture("servo", RobotMap.SERVO_CAM);
 		//HD Resolution
 		//camera.setResolution(1280, 720);
 		//SD Resolution
 		camera.setResolution(640, 480);
 		camera2.setResolution(640, 480);
 		
-		System.out.println("Robot Init exec: Switch left=" + gameInfo.isSwitchLeft());
-		SmartDashboard.putBoolean("switch position", gameInfo.isSwitchLeft());
 	}
 
 	@Override
@@ -100,7 +98,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 
-	}
+	} 
 
 	@Override
 	public void disabledPeriodic() {
@@ -120,14 +118,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//m_autonomousCommand = getSelectedAutoCommand();
-
+		System.out.println("Robot Init exec: Switch left=" + gameInfo.isSwitchLeft());
+		SmartDashboard.putBoolean("switch position", gameInfo.isSwitchLeft());
+		m_autonomousCommand = getSelectedAutoCommand();
 		// schedule the autonomous command (example)
-		/*if (m_autonomousCommand != null) {
+		if (m_autonomousCommand != null) {
 			System.out.println("autocomamnd: " + m_autonomousCommand.getName() + " type=" + m_autonomousCommand.getClass().getName());
 			m_autonomousCommand.start();
-		}*/
-		m_autonomousCommand = new TestAuto();
+		}
 		
 	}
 
@@ -176,6 +174,7 @@ public class Robot extends TimedRobot {
      */
 	@Override
     public void testPeriodic() {
+		System.out.println("is limit switch active  =" + lift.isSwitch());
     	//System.out.println("TEST " + ultraSonic.getDistance());
 		SmartDashboard.putString("MY_VALUE", "test");
 		NetworkTableInstance defTable = NetworkTableInstance.getDefault();

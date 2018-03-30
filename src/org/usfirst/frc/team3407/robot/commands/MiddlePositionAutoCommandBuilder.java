@@ -7,8 +7,8 @@ public class MiddlePositionAutoCommandBuilder extends AbstractAutoDropAtSwitchCo
 	@Override
 	protected void addDriveManeuver(Direction direction, CommandGroup command) {
 		//move forward initially 
-		final double TURN_TIME = 2;
-		final double TURN_SPEED = 0.35;
+		final double TURN_TIME = 1;
+		final double TURN_SPEED = 0.47;
 		command.addSequential(new TimedDrive(1, 0.5, 0.5));
 		//turn 90 degrees
 		command.addSequential(new TimedDrive(TURN_TIME, 

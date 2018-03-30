@@ -16,20 +16,22 @@ public class Lifter extends Subsystem {
 	private static Victor lifter = new Victor(RobotMap.LIFTER_MOTOR);
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	public void move(boolean up) {
-		if(up) {
-			if (lifter.get() != 1.0) {
-				System.out.println("Lifter speed set to 1");
-				counter.reset();
-				
-			}
-			lifter.set(1.0);
-		} else {
-			if (lifter.get() != -1.0) {
-				System.out.println("Lifter speed set to -1");
-			}
-			lifter.set(-1.0);
+	
+	public void moveDown() {
+		// TODO Auto-generated method stub
+		if (lifter.get() != 1.0) {
+			System.out.println("Lifter speed set to -1");
 		}
+		lifter.set(1.0);
+		
+	}
+	
+	public void moveUp() {
+		if (lifter.get() != -1.0) {
+			System.out.println("Lifter speed set to 1");
+		}
+		lifter.set(-1.0);
+		
 	}
 	public void stop() {
 		System.out.println("Lifter motor stopped");
@@ -41,9 +43,8 @@ public class Lifter extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
-	public boolean isSwitch() {
-		System.out.println(counter.get());
-		return counter.get() > 0;
-	}
+    public boolean isSwitch() {
+    	return !lim.get();
+    }
 }
 

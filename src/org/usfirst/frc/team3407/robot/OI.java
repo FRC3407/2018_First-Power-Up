@@ -45,8 +45,12 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	public OI(){
 		triggerCam.whenPressed(new HoldServo());
-		triggerLiftUp.whileActive(new RaiseLift());		
-		triggerLiftDown.whileActive(new LowerLift());
+		
+		triggerLiftUp.whileActive(new RaiseLift());	
+		
+		//if(!Robot.lift.isSwitch()) {
+			triggerLiftDown.whileActive(new LowerLift());
+		//}
 		
 		triggerArms.whenActive(new OpenArms());
 		triggerArms.whenReleased(new CloseArms());

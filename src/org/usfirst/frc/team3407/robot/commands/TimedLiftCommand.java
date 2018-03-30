@@ -31,8 +31,13 @@ public class TimedLiftCommand extends TimedCommand {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	Robot.lift.move(direction.value);
+    protected void execute() {//TODO: update this 
+    	//Robot.lift.move(direction.value);
+    	if(direction.value) {
+    		Robot.lift.moveUp();
+    	}else {
+    		Robot.lift.moveDown();
+    	}
     }
 
     // Called once after timeout

@@ -41,6 +41,10 @@ public class RobotMap {
 	public static final int LIFT_TRIGGER_UP = 3;
 	public static final int ARMS_TRIGGER = 1;
 	
+	//cameras
+	public static final int FIXED_CAM = 0;
+	public static final int SERVO_CAM = 1;
+	
 	
 	//Sensors
 	public static final int ULTRASONIC = 3;
