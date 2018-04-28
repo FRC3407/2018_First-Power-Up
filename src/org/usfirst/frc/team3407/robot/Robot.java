@@ -22,6 +22,7 @@ import java.util.HashMap;
 import org.usfirst.frc.team3407.robot.commands.LeftPositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.MiddlePositionAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.RightPositionAutoCommandBuilder;
+import org.usfirst.frc.team3407.robot.commands.TestMiddleAutoCommandBuilder;
 import org.usfirst.frc.team3407.robot.commands.TimedDrive;
 //import org.usfirst.frc.team3407.robot.commands.TestAuto;
 import org.usfirst.frc.team3407.robot.subsystems.Arms;
@@ -68,9 +69,10 @@ public class Robot extends TimedRobot {
 		cameraServo = new CameraServo();
 		m_oi = new OI();
 		
-		addAutoCommand("Straight", new TimedDrive(3.0,0.6,0.7), true);
+		addAutoCommand("Straight", new TimedDrive(2.5,0.6,0.665), true);
 		addAutoCommand("Left", new LeftPositionAutoCommandBuilder().build(), false);
-		addAutoCommand("Middle", new MiddlePositionAutoCommandBuilder().build(), false);
+		//addAutoCommand("Middle", new MiddlePositionAutoCommandBuilder().build(), false);
+		addAutoCommand("Middle", new TestMiddleAutoCommandBuilder().build(), false);
 		addAutoCommand("Right", new RightPositionAutoCommandBuilder().build(), false);
 		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
 		
@@ -80,8 +82,10 @@ public class Robot extends TimedRobot {
 		//HD Resolution
 		//camera.setResolution(1280, 720);
 		//SD Resolution
-		camera.setResolution(640, 480);
-		camera2.setResolution(640, 480);
+		camera.setResolution(480, 360);
+		camera2.setResolution(480, 360);
+		camera.setFPS(15);
+		camera2.setFPS(15);
 		
 	}
 
@@ -228,7 +232,7 @@ public class Robot extends TimedRobot {
 			System.out.println("Command from chooser");
 			command = m_chooser.getSelected();
 		}
-	
+		// || !gameInfo.isValid()
 		if (command == null || !gameInfo.isValid()) {
 			System.out.println("Using default command: " + defaultCommandSelect);
 			System.out.println("Game Info Data: " + gameInfo.isValid());

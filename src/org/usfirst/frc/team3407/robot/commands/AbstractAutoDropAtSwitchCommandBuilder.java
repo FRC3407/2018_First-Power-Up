@@ -30,8 +30,6 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 		command.addSequential(new PrintCommand("Drive Maneuver"));
 		addDriveManeuver(direction, command);
 		
-		command.addParallel(new TimedLiftCommand(0.5, TimedLiftCommand.Direction.LOWER));
-		
 		command.addSequential(new PrintCommand("Lowering arm"));
 		addLowerArms(command);
 		
@@ -66,31 +64,8 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	//      |
 	//
 	protected void addNearDriveManeuver(Direction direction, CommandGroup command) {
-		
-		final double TURN_TIME = 1;
-		final double TURN_SPEED = 0.47;
-		
-		// Initial forward
-		command.addSequential(new TimedDrive(.5, 0.5, 0.5));    
-		command.addSequential(new WaitCommand(1));
-		
-		// Turn in the specified direction 
-		//TODO: ask about if we can just set up in front of the switch. 
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction), 
-				getRightSpeedForTurn(TURN_SPEED, direction)));  
-		
-		// Drive horizontal
-		//is this enough? should have had it all sketched out before now. 
-		command.addSequential(new TimedDrive(1.0, 0.5, 0.5));    
-		command.addSequential(new WaitCommand(2));
-		
-		// Turn opposite of the specified direction to face the switch wall 
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
-				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite()))); 
-		// a lot of time to just move forward, maybe go for second (or third) cube?
-		command.addSequential(new AutoDrive(10));
+		command.addSequential(new AutoDrive(6));
+		command.addSequential(new TimedDrive(3.0, 0.5, 0.53));  
 	}
 	
 	// This is a far switch maneuver.  For example if direction is right, then the
@@ -105,33 +80,30 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	//      ________________________|
 	//      |
 	//      |
-	//
 	protected void addFarDriveManeuver(Direction direction, CommandGroup command) {
 		
-		final double TURN_TIME = 1.0;
-		final double TURN_SPEED = 0.47;
+		final double TURN_TIME = 1.5;
+		final double TURN_SPEED = .5;
 		
 		// Initial forward
-		command.addSequential(new TimedDrive(.5, 0.5, 0.5));    
-		command.addSequential(new WaitCommand(1));
-		
+		command.addSequential(new TimedDrive(1, 0.5, 0.53));    
 		// Turn 90 degrees in specified direction
 		command.addSequential(new TimedDrive(TURN_TIME, 
 				getLeftSpeedForTurn(TURN_SPEED, direction), 
-				getRightSpeedForTurn(TURN_SPEED, direction)));  
+				getRightSpeedForTurn(TURN_SPEED, direction)));
+		command.addSequential(new WaitCommand(.5));
 		
 		// Drive across field
-		command.addSequential(new TimedDrive(3, 0.6, 0.6));    
-		command.addSequential(new WaitCommand(3));
+		command.addSequential(new TimedDrive(3, 0.6, 0.655));    
+		command.addSequential(new WaitCommand(2));
 		
 		// Turn opposite of the specified direction to face the switch wall 
 		command.addSequential(new TimedDrive(TURN_TIME, 
 				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
 				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite())));  
-		
+		command.addSequential(new WaitCommand(1));
 		// Drive to wall
-		//def enough time here to get another cube
-		command.addSequential(new AutoDrive(7));    
+		command.addSequential(new AutoDrive(3));    
 	}
 
 	protected double getLeftSpeedForTurn(double speed, Direction direction) {

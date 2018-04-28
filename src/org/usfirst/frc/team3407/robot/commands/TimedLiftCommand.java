@@ -36,7 +36,9 @@ public class TimedLiftCommand extends TimedCommand {
     	if(direction.value) {
     		Robot.lift.moveUp();
     	}else {
-    		Robot.lift.moveDown();
+    		if(!Robot.lift.isSwitch()) {
+    			Robot.lift.moveDown();
+    		}
     	}
     }
 
