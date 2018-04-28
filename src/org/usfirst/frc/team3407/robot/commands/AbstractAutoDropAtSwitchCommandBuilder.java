@@ -27,7 +27,6 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 			command.addSequential(new PrintCommand("Waiting " + initialWait + " seconds"));
 			command.addSequential(new WaitCommand(initialWait));
 		}
-		
 		command.addSequential(new PrintCommand("Drive Maneuver"));
 		addDriveManeuver(direction, command);
 		
@@ -57,42 +56,23 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	// position.
 	//
 	//
-	//         |
-	//		  /
-	//       /
-	//      /
+	//          |
+	//		    |
+	//          | 
+	//      ----|
 	//      |
 	//      |
 	//
 	protected void addNearDriveManeuver(Direction direction, CommandGroup command) {
-		
-		final double TURN_TIME = 1;
-		final double TURN_SPEED = 0.35;
-		
-		// Initial forward
-		command.addSequential(new TimedDrive(.5, 0.5, 0.5));    
-		command.addSequential(new WaitCommand(0.5));
-		
-		// Turn in the specified direction 
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction), 
-				getRightSpeedForTurn(TURN_SPEED, direction)));  
-		
-		// Drive diagonal 
-		command.addSequential(new TimedDrive(1.0, 0.5, 0.5));    
-		command.addSequential(new WaitCommand(0.5));
-		
-		// Turn opposite of the specified direction to face the switch wall 
-		command.addSequential(new TimedDrive(TURN_TIME, 
-				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
-				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite()))); 
-		command.addSequential(new AutoDrive(12));
+		command.addSequential(new AutoDrive(6));
+		command.addSequential(new TimedDrive(3.0, 0.5, 0.53));  
 	}
 	
 	// This is a far switch maneuver.  For example if direction is right, then the
 	// path is below.  Left direction is mirror image.  Used from left and right positions to
-	// cross playing field.
-	//
+	// cross playing field.			
+	//							    |
+	//								|
 	//                              |
 	//                              |
 	//                              |
@@ -100,32 +80,30 @@ public abstract class AbstractAutoDropAtSwitchCommandBuilder extends AbstractAut
 	//      ________________________|
 	//      |
 	//      |
-	//
 	protected void addFarDriveManeuver(Direction direction, CommandGroup command) {
 		
-		final double TURN_TIME = 2.0;
-		final double TURN_SPEED = 0.35;
+		final double TURN_TIME = 1.5;
+		final double TURN_SPEED = .5;
 		
 		// Initial forward
-		command.addSequential(new TimedDrive(1.0, 0.5, 0.5));    
-		command.addSequential(new WaitCommand(0.5));
-		
+		command.addSequential(new TimedDrive(1, 0.5, 0.53));    
 		// Turn 90 degrees in specified direction
 		command.addSequential(new TimedDrive(TURN_TIME, 
 				getLeftSpeedForTurn(TURN_SPEED, direction), 
-				getRightSpeedForTurn(TURN_SPEED, direction)));  
+				getRightSpeedForTurn(TURN_SPEED, direction)));
+		command.addSequential(new WaitCommand(.5));
 		
 		// Drive across field
-		command.addSequential(new TimedDrive(4, 0.5, 0.5));    
-		command.addSequential(new WaitCommand(0.5));
+		command.addSequential(new TimedDrive(3, 0.6, 0.655));    
+		command.addSequential(new WaitCommand(2));
 		
 		// Turn opposite of the specified direction to face the switch wall 
 		command.addSequential(new TimedDrive(TURN_TIME, 
 				getLeftSpeedForTurn(TURN_SPEED, direction.getOpposite()), 
 				getRightSpeedForTurn(TURN_SPEED, direction.getOpposite())));  
-		
+		command.addSequential(new WaitCommand(1));
 		// Drive to wall
-		command.addSequential(new AutoDrive(9));    
+		command.addSequential(new AutoDrive(3));    
 	}
 
 	protected double getLeftSpeedForTurn(double speed, Direction direction) {

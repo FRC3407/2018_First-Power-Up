@@ -22,7 +22,7 @@ public class RaiseLift extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 		System.out.println("RaiseLift Executing");
-    	Robot.lift.move(true);
+    	Robot.lift.moveUp();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,6 +35,7 @@ public class RaiseLift extends Command {
     protected void end() {
 		System.out.println("RaiseLift Ended");
     	Robot.lift.stop();
+    	
     }
 
     // Called when another command which requires one or more of the same

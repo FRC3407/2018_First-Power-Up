@@ -6,7 +6,9 @@ public class CompetitionGameInfo extends GameInfo {
 
 	@Override
 	protected String getMessage() {
-		return DriverStation.getInstance().getGameSpecificMessage();
+		String message = DriverStation.getInstance().getGameSpecificMessage();
+		System.out.println("GSM: " + message);
+		return message;
 	}
 
 }
