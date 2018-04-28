@@ -10,7 +10,7 @@ package org.usfirst.frc.team3407.robot;
 import edu.wpi.cscore.VideoCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
-//import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -41,7 +41,7 @@ import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
 public class Robot extends TimedRobot {
 	public static Pneumatics pneumatics = new Pneumatics();;
 	public static final DriveSubsystem drive = new DriveSubsystem();
-	//public static final Compressor c = new Compressor();
+	public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
 	public static Lifter lift = new Lifter();
 	public static Arms arms = new Arms();
@@ -149,7 +149,7 @@ public class Robot extends TimedRobot {
 		// this line or comment it out.
 		
 		//turns off compressor
-		//c.setClosedLoopControl(false);
+		c.setClosedLoopControl(false);
 		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();

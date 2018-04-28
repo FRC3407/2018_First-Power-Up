@@ -61,6 +61,10 @@ public class OI {
 	}
 	
 	public double getStickCam() {
-		return stickCam.getX()+0.5;
+		System.out.println("Stick Cam: " + stickCam.getX());
+		/*if(stickCam.getX()<0.05 && stickCam.getX()>-0.05)
+			return 0.5;
+		else*/
+			return stickCam.getX()+0.5;
 	}
 }
