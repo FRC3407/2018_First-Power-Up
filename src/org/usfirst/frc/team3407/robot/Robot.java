@@ -9,11 +9,13 @@ package org.usfirst.frc.team3407.robot;
 
 import edu.wpi.cscore.VideoCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CameraServer;
-//import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -39,9 +41,10 @@ import org.usfirst.frc.team3407.robot.subsystems.UltraSonic;
  * project.
  */
 public class Robot extends TimedRobot {
+	public Gyro gyro;
 	public static Pneumatics pneumatics = new Pneumatics();;
 	public static final DriveSubsystem drive = new DriveSubsystem();
-	//public static final Compressor c = new Compressor();
+	public static final Compressor c = new Compressor();
 	public static final UltraSonic ultraSonic = new UltraSonic();
 	public static Lifter lift = new Lifter();
 	public static Arms arms = new Arms();
@@ -65,6 +68,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		gyro = new ADXRS450_Gyro();
+		gyro.calibrate();
 		cameraServo = new CameraServo();
 		m_oi = new OI();
 		
@@ -76,6 +81,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(SD_AUTO_CHOOSER_KEY, m_chooser);
 		
 		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
+		SmartDashboard.putNumber("Angle", gyro.getAngle());
+		SmartDashboard.putNumber("Turn Rate", gyro.getRate());
 		VideoCamera camera = CameraServer.getInstance().startAutomaticCapture("fixed", RobotMap.FIXED_CAM);
 		VideoCamera camera2 = CameraServer.getInstance().startAutomaticCapture("servo", RobotMap.SERVO_CAM);
 		//HD Resolution
@@ -143,13 +150,14 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		//gyro.reset();
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		
 		//turns off compressor
-		//c.setClosedLoopControl(false);
+		c.setClosedLoopControl(false);
 		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
@@ -162,6 +170,9 @@ public class Robot extends TimedRobot {
 	@Override
 	 public void teleopPeriodic() {
 		SmartDashboard.putNumber("Ultra-Sonic", ultraSonic.getDistance());
+		SmartDashboard.putNumber("Angle", gyro.getAngle());
+		SmartDashboard.putNumber("Turn Rate", gyro.getRate());
+		System.out.println("Angle: " + gyro.getAngle() + " Turn Rate: " + gyro.getRate());
     	//System.out.println("TELOP " + ultraSonic.getDistance());
         Scheduler.getInstance().run();
     }
