@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team3407.robot;
 
+import edu.wpi.first.wpilibj.SPI;
+
 import edu.wpi.cscore.VideoCamera;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -68,7 +70,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		gyro = new ADXRS450_Gyro();
+		gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
 		gyro.calibrate();
 		cameraServo = new CameraServo();
 		m_oi = new OI();
